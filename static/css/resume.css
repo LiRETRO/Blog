@@ -42,6 +42,10 @@ h3 {
   font-size: 2rem;
 }
 
+.lowercase {
+  text-transform: lowercase;
+}
+
 p.lead {
   font-size: 1.15rem;
   font-weight: 400;
