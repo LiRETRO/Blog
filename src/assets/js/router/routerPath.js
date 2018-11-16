@@ -8,6 +8,7 @@ export default [
     meta: {
       title: '主页'
     },
-    children: []
+    childrens: [
+    ]
   }
 ]

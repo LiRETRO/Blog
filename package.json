@@ -14,6 +14,7 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "easing": "^1.1.2",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1"
   },
@@ -39,6 +40,7 @@
     "copy-webpack-plugin": "^4.0.1",
     "cross-spawn": "^5.0.1",
     "css-loader": "^0.28.0",
+    "easing-js": "^1.1.2",
     "eslint": "^4.15.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-friendly-formatter": "^3.0.0",
@@ -48,6 +50,7 @@
     "eslint-plugin-promise": "^3.4.0",
     "eslint-plugin-standard": "^3.0.1",
     "eslint-plugin-vue": "^4.0.0",
+    "expose-loader": "^0.7.5",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.4",
     "friendly-errors-webpack-plugin": "^1.6.1",
@@ -55,6 +58,7 @@
     "jest": "^22.0.4",
     "jest-serializer-vue": "^0.3.0",
     "jquery": "^3.3.1",
+    "jquery.easing": "^1.4.1",
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
     "nightwatch": "^0.9.12",
