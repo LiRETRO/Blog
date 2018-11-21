@@ -16,7 +16,7 @@
             <router-link class="nav-link js-scroll-trigger" to="/about">About</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link js-scroll-trigger" to="/experience">Experience</router-link>
+            <router-link class="nav-link js-scroll-trigger" to="/blog">Blog</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link js-scroll-trigger" to="/education">Education</router-link>
@@ -34,38 +34,14 @@
       </div>
     </nav>
     <div class="container-fluid p-0">
-      <transition :name="transitionName" mode="out-in">
-        <router-view class="child-view" :v-show="isIndex"/>
-        <img class="child-view" :v-show="isIndex" src="../../../static/images/bg.png" style="width: 100%; height: 100%;"/>
+      <transition :name="transitionName" mode="out-in" >
+        <router-view class="child-view" :v-show="!isIndex"/>
       </transition>
     </div>
   </div>
 </template>
 
 <script>
-$(function () {
-  // Smooth scrolling using jQuery easing
-  $('a.js-scroll-trigger[href*="#"]:not([href="#"])').click(function() {
-    if (location.pathname.replace(/^\//, '') == this.pathname.replace(/^\//, '') && location.hostname == this.hostname) {
-      var target = $(this.hash);
-      target = target.length ? target : $('[name=' + this.hash.slice(1) + ']');
-      if (target.length) {
-        $('html, body').animate({
-          scrollTop: (target.offset().top)
-        }, 1000, "easeInOutExpo");
-        return false;
-      }
-    }
-  });
-  // Closes responsive menu when a scroll trigger link is clicked
-  $('.js-scroll-trigger').click(function() {
-    $('.navbar-collapse').collapse('hide');
-  });
-  // Activate scrollspy to add active class to navbar items on scroll
-  $('body').scrollspy({
-    target: '#sideNav'
-  });
-})
 export default {
   data () {
     return {
@@ -85,6 +61,7 @@ export default {
       const toDepth = this.menu.findIndex(item => item === to.name)
       const fromDepth = this.menu.findIndex(item => item === from.name)
       this.transitionName = toDepth < fromDepth ? 'slide-top' : 'slide-down'
+      console.log(to.path != '/' ? false : true)
       this.isIndex = to.path != '/' ? false : true
     }
   },
@@ -94,8 +71,11 @@ export default {
 }
 </script>
 <style lang="less">
+@import '../../assets/global/global.less';
+
+// 动画
 .child-view {
-  transition: all .3s cubic-bezier(.68, -1.5, .27, 2);
+  transition: all .3s cubic-bezier(.68, .2, .27, 1);
 }
 .slide-top-enter, .slide-down-leave-active  {
   transform: translateY(-75px);
@@ -104,5 +84,11 @@ export default {
 .slide-top-leave-active, .slide-down-enter  {
   transform: translateY(75px);
   opacity: 0;
+}
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s ease;
+}
+.fade-enter, .fade-leave-active {
+  opacity: 0
 }
 </style>

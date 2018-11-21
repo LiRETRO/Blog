@@ -1,8 +1,9 @@
 import { isAbsolute } from 'path';
 
 const Layout = () => import ('@/components/Layout/Layout.vue')
+const pic = () => import ('@/views/pic.vue')
 const about = () => import ('@/views/about.vue')
-const experience = () => import ('@/views/experience.vue')
+const blog = () => import ('@/views/blog.vue')
 const education = () => import ('@/views/education.vue')
 const skills = () => import ('@/views/skills.vue')
 const interests = () => import ('@/views/interests.vue')
@@ -18,6 +19,14 @@ export default [
     },
     children: [
       {
+        path: '/',
+        name: 'Index',
+        component: pic,
+        meta: {
+          title: '主页'
+        }
+      },
+      {
         path: '/about',
         name: 'about',
         component: about,
@@ -26,11 +35,11 @@ export default [
         }
       },
       {
-        path: '/experience',
-        name: 'experience',
-        component: experience,
+        path: '/blog',
+        name: 'blog',
+        component: blog,
         meta: {
-          title: '经验'
+          title: '博客'
         }
       },
       {
