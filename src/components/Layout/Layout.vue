@@ -61,7 +61,6 @@ export default {
       const toDepth = this.menu.findIndex(item => item === to.name)
       const fromDepth = this.menu.findIndex(item => item === from.name)
       this.transitionName = toDepth < fromDepth ? 'slide-top' : 'slide-down'
-      console.log(to.path != '/' ? false : true)
       this.isIndex = to.path != '/' ? false : true
     }
   },

@@ -53,6 +53,13 @@ module.exports = {
       }]
       },
       {
+      test: require.resolve('isotope-layout'),
+      use: [{
+        loader: 'expose-loader',
+        options: 'Isotope'
+      }]
+      },
+      {
         test: /\.vue$/,
         loader: 'vue-loader',
         options: vueLoaderConfig
