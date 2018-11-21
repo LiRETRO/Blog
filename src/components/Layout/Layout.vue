@@ -19,7 +19,7 @@
             <router-link class="nav-link js-scroll-trigger" to="/blog">Blog</router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link js-scroll-trigger" to="/education">Education</router-link>
+            <router-link class="nav-link js-scroll-trigger" to="/picture">Picture</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link js-scroll-trigger" to="/skills">Skills</router-link>

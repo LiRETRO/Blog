@@ -1,8 +1,9 @@
 <template>
   <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="blog">
-    <div id="blog-timeline">
-
-    </div>
+    <TimeLine :data="data" orientation='horizontal' :eventsPerSlide="8"></TimeLine>
+    <transition>
+      <router-view></router-view>
+    </transition>
     <!-- <div class="my-auto">
       <h2 class="mb-5">Experience</h2>
       <div class="resume-item d-flex flex-column flex-md-row mb-5">
@@ -55,8 +56,8 @@ export default {
     return {
       data: [
         		{
-        			date: 'Q1 - 2018',
-        			content: 'Lorem ipsum dolor sit amet<small>Consectetur adipisicing elit</small>'
+        			date: '2018年1月1日',
+        			content: '关于RabbitMQ在Liunx上的配置'
         		},
         		{
         			date: 'Q2 - 2018',
@@ -123,22 +124,9 @@ export default {
   },
   methods: {
     init () {
-      $('#blog-timeline').roadmap(this.data, {
-        // 每页显示数量
-        eventsPerSlide: 5,
-        // 初始显示
-        slide: 1,
-        // 朝向 auto vertical horizontal
-        orientation: 'vertical',
-        // 上一页
-        prevArrow: 'next',
-        // 下一页
-        nextArrow: 'prev'
-      });
+     
     }
-  },
-  mounted () {
-    this.init()
+    
   }
 }
 </script>

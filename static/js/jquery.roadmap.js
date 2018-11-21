@@ -37,7 +37,7 @@ export default (function (factory) {
 			prevArrow: 'prev',
 			nextArrow: 'next',
 			orientation: 'auto',
-			eventTemplate: '<div class="event">' + '<div class="event__date">####DATE###</div>' + '<div class="event__content">####CONTENT###</div>' + '</div>'
+			eventTemplate: '<a href="/detail/123"><div class="event">' + '<div class="event__date">####DATE###</div>' + '<div class="event__content">####CONTENT###</div>' + '</div></a>'
 		};
 
 		var settings = $.extend({}, defaults, opts);

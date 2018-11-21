@@ -3,8 +3,9 @@ import { isAbsolute } from 'path';
 const Layout = () => import ('@/components/Layout/Layout.vue')
 const pic = () => import ('@/views/pic.vue')
 const about = () => import ('@/views/about.vue')
-const blog = () => import ('@/views/blog.vue')
-const education = () => import ('@/views/education.vue')
+const blog = () => import ('@/views/blog/blog.vue')
+const blogDetail = () => import ('@/views/blog/blogDetail.vue')
+const picture = () => import ('@/views/picture.vue')
 const skills = () => import ('@/views/skills.vue')
 const interests = () => import ('@/views/interests.vue')
 const awards = () => import ('@/views/awards.vue')
@@ -40,14 +41,22 @@ export default [
         component: blog,
         meta: {
           title: '博客'
-        }
+        },
+        children: [{
+          path: '/detail/:id',
+          name: 'blogDetail',
+          component: blogDetail,
+          meta: {
+            title: '正文'
+          }
+        }]
       },
       {
-        path: '/education',
-        name: 'education',
-        component: education,
+        path: '/picture',
+        name: 'picture',
+        component: picture,
         meta: {
-          title: 'education'
+          title: 'picture'
         }
       },
       {
