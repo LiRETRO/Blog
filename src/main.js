@@ -5,6 +5,7 @@ import Vuex from 'vuex'
 import App from './App'
 import router from './router'
 import store from './store/manager/manager'
+import './util/request'
 // 引入jquery 及其插件
 import 'jquery.easing'
 // 瀑布流

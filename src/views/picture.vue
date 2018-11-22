@@ -101,7 +101,7 @@ export default {
         itemSelector: '.isotope-item',
         layoutMode: 'fitRows',
         masonry: {
-          columnWidth: 0
+          columnWidth: 10
         }
       })
       // Button Click Event
