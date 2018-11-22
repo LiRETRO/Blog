@@ -43,21 +43,14 @@ module.exports = {
     rules: [
       //...(config.dev.useEslint ? [createLintingRule()] : []),
       {
-      test: require.resolve('jquery'),
-      use: [{
-        loader: 'expose-loader',
-        options: 'jQuery'
-      },{
-        loader: 'expose-loader',
-        options: '$'
-      }]
-      },
-      {
-      test: require.resolve('isotope-layout'),
-      use: [{
-        loader: 'expose-loader',
-        options: 'Isotope'
-      }]
+        test: require.resolve('jquery'),
+        use: [{
+          loader: 'expose-loader',
+          options: 'jQuery'
+        },{
+          loader: 'expose-loader',
+          options: '$'
+        }]
       },
       {
         test: /\.vue$/,

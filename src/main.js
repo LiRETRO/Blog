@@ -8,7 +8,7 @@ import store from './store/manager/manager'
 // 引入jquery 及其插件
 import 'jquery.easing'
 // 瀑布流
-import 'isotope-layout'
+import '../node_modules/isotope-layout/dist/isotope.pkgd.min'
 // 时间线
 import '../static/js/jquery.roadmap'
 import '../static/css/jquery.roadmap.min.css'

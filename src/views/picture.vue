@@ -18,54 +18,54 @@
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="../../static/images/head.png" title="测试标题">
               <div class="hover-text">
-                <h4>Project Title</h4>
+                <h4>测试标题</h4>
               </div>
               <img src="../../static/images/head.png" class="img-responsive"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 xdyc isotope-item" style="transform: translate3d(300px, 0, 0)">
+        <div class="col-sm-6 col-md-3 col-lg-3 xdyc isotope-item">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="../../static/images/head.png" title="测试标题">
               <div class="hover-text">
-                <h4>Project Title</h4>
+                <h4>测试标题</h4>
               </div>
               <img src="../../static/images/head.png" class="img-responsive"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 lkh isotope-item" style="transform: translate3d(600px, 0, 0)">
+        <div class="col-sm-6 col-md-3 col-lg-3 lkh isotope-item">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="../../static/images/head.png" title="测试标题">
               <div class="hover-text">
-                <h4>Project Title</h4>
+                <h4>测试标题</h4>
               </div>
-              <img src="../../static/images/head.png" class="img-responsive"> </a> </div>
+              <img src="../../static/images/test1.jpg" class="img-responsive"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 lkh isotope-item" style="transform: translate3d(900px, 0, 0)">
+        <div class="col-sm-6 col-md-3 col-lg-3 lkh isotope-item">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="../../static/images/head.png" title="测试标题">
               <div class="hover-text">
-                <h4>Project Title</h4>
+                <h4>测试标题</h4>
               </div>
-              <img src="../../static/images/head.png" class="img-responsive"> </a> </div>
+              <img src="../../static/images/test1.jpg" class="img-responsive"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 jh isotope-item" style="transform: translate3d(0, 220px, 0)">
+        <div class="col-sm-6 col-md-3 col-lg-3 jh isotope-item">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="../../static/images/head.png" title="测试标题">
               <div class="hover-text">
-                <h4>Project Title</h4>
+                <h4>测试标题</h4>
               </div>
-              <img src="../../static/images/head.png" class="img-responsive"> </a> </div>
+              <img src="../../static/images/test2.jpg" class="img-responsive"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 jh isotope-item" style="transform: translate3d(300px, 220px, 0)">
+        <div class="col-sm-6 col-md-3 col-lg-3 jh isotope-item">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="../../static/images/head.png" title="测试标题">
               <div class="hover-text">
-                <h4>Project Title</h4>
+                <h4>测试标题</h4>
               </div>
-              <img src="../../static/images/head.png" class="img-responsive"> </a> </div>
+              <img src="../../static/images/test2.jpg" class="img-responsive"> </a> </div>
           </div>
         </div>
       </div>
@@ -77,12 +77,32 @@
 export default {
   data () {
     return {
-      
+
     }
   },
   methods: {
     init () {
-      $('.portfolio-items').isotope()
+      $('.portfolio-items').isotope({
+        itemSelector: '.isotope-item',
+        layoutMode: 'fitRows',
+        masonry: {
+          columnWidth: 0
+        }
+      })
+      // Button Click Event
+      $("ol.type a").on('click', function(event) {
+        event.preventDefault()
+        if ($(this).hasClass('active')) {
+          return false;
+        }
+        $("ol.type a").removeClass('active')
+        $(this).addClass('active')
+        let filterType = $(this).attr('data-filter')
+        $('.portfolio-items').isotope({
+          filter: filterType
+        })
+        return false;
+      })
     }
   },
   mounted () {
@@ -119,20 +139,11 @@ export default {
   }
   // fillter
   .isotope {
-    backface-visibility: hidden;
-    transition-property: height, width;
-    transition-duration: 0.8s;
-    position: relative; overflow: hidden; height: 675px; width: 100%;
+    position: relative; width: 100%;
     .isotope-item {
-      transition-duration: 0.8s;
-      backface-visibility: hidden;
-      transition-property: transform, opacity;
-      margin-right: -1px;
-      z-index: 2;
-      position: absolute; left: 0px; top: 0px;
       .portfolio-item {
+        transition: transform .5s ease;
         margin: 15px 0;
-        transition: all 0.5s ease-out;
         &:hover {
           transform: scale(1.1);
         }
@@ -141,6 +152,7 @@ export default {
           overflow: hidden;
           position: relative;
           .hover-text {
+            transition: opacity .5s ease;
             position: absolute;
             text-align: center;
             margin: 0 auto;
@@ -156,7 +168,7 @@ export default {
               opacity: 0;
               color: #fff;
               transform: translateY(0%);
-              transition: all 0.3s;
+              transition: opacity .5s ease;
             }
           }
           &:hover {
@@ -174,6 +186,6 @@ export default {
           }
         }
       }
-    }    
+    }
   }
 </style>
