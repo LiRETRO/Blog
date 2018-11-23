@@ -227,7 +227,7 @@ export default {
               text-transform: uppercase;
               opacity: 0;
               color: #fff;
-              transform: translateY(0%);
+              transform: translateY(-100%);
               transition: opacity .5s ease;
             }
           }
