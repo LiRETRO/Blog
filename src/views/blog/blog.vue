@@ -1,6 +1,7 @@
 <template>
   <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="blog">
-    <TimeLine :data="blogList" orientation='horizontal' :eventsPerSlide="8"></TimeLine>
+    <!-- <TimeLine :data="blogList" orientation='horizontal' :eventsPerSlide="8"></TimeLine> -->
+		<blog-content title="技术分享" :data="blogList"></blog-content>
     <transition>
       <router-view></router-view>
     </transition>
@@ -8,76 +9,11 @@
 </template>
 
 <script>
+import blogContent from '@/components/Blog.vue'
 import { mapGetters , mapActions } from 'vuex'
 export default {
   data () {
     return {
-      data: [
-        		{
-        			date: '2018年1月1日',
-        			content: '关于RabbitMQ在Liunx上的配置'
-        		},
-        		{
-        			date: 'Q2 - 2018',
-        			content: 'Lorem ipsum dolor sit amet<small>Consectetur adipisicing elit</small>'
-        		},
-        		{
-        			date: 'Q3 - 2018',
-        			content: 'Lorem ipsum dolor sit amet<small>Consectetur adipisicing elit</small>'
-        		},
-        		{
-        			date: 'Q4 - 2018',
-        			content: 'Lorem ipsum dolor sit amet<small>Consectetur adipisicing elit</small>'
-        		},
-						{
-							date: 'Q1 - 2019',
-							content: 'Lorem ipsum dolor sit amet<small>Consectetur adipisicing elit</small>'
-						},
-						{
-								date: 'Q2 - 2019',
-								content: 'Lorem ipsum dolor sit amet<small>Consectetur adipisicing elit</small>'
-						},
-						{
-								date: 'Q3 - 2019',
-								content: 'Lorem ipsum dolor sit amet<small>Consectetur adipisicing elit</small><small>Consectetur adipisicing elit</small>'
-						},
-						{
-								date: 'Q4 - 2019',
-								content: 'Lorem ipsum dolor sit amet<small>Consectetur adipisicing elit</small>'
-						},
-						{
-								date: 'Q1 - 2020',
-								content: 'Lorem ipsum dolor sit amet<small>Consectetur adipisicing elit</small>'
-						},
-						{
-								date: 'Q2 - 2020',
-								content: 'Lorem ipsum dolor sit amet<small>Consectetur adipisicing elit</small>'
-						},
-						{
-								date: 'Q3 - 2020',
-								content: 'Lorem ipsum dolor sit amet<small>Consectetur adipisicing elit</small>'
-						},
-						{
-								date: 'Q4 - 2020',
-								content: 'Lorem ipsum dolor sit amet<small>Consectetur adipisicing elit</small>'
-						},
-						{
-							date: 'Q1 - 2021',
-							content: 'Lorem ipsum dolor sit amet<small>Consectetur adipisicing elit</small>'
-						},
-						{
-							date: 'Q2 - 2021',
-							content: 'Lorem ipsum dolor sit amet<small>Consectetur adipisicing elit</small>'
-						},
-						{
-							date: 'Q3 - 2021',
-							content: 'Lorem ipsum dolor sit amet<small>Consectetur adipisicing elit</small>'
-						},
-						{
-							date: 'Q4 - 2021',
-							content: 'Lorem ipsum dolor sit amet<small>Consectetur adipisicing elit</small>'
-        		}
-        	]
     }
   },
   computed: {
@@ -90,10 +26,13 @@ export default {
         'getBlogList'
     ]),
     init () {
-        this.getBlogList()
-    }
-  },
-  mounted () {
+				this.getBlogList()
+		}
+	},
+	components: {
+		'blog-content': blogContent
+	},
+  created () {
     this.init()
   }
 }

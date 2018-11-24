@@ -12,7 +12,6 @@ const getters = {
 const actions = {
   getBlogList ({ commit, state }, products) {
     affair.getBlogList().then(function (result) {
-      console.log(result)
       commit('setBlogList', {list: result})
     })
   }

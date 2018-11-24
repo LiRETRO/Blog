@@ -7,7 +7,7 @@
           <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="../../../static/images/head.png" alt="">
         </span>
       </router-link>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -35,7 +35,7 @@
     </nav>
     <div class="container-fluid p-0">
       <transition :name="transitionName" mode="out-in" >
-        <router-view class="child-view" :v-show="!isIndex"/>
+        <router-view class="child-view" :v-show="!isIndex" ref="child"/>
       </transition>
     </div>
   </div>
@@ -47,13 +47,37 @@ export default {
     return {
       transitionName: 'slide-top',
       menu: [
-        'about', 'experience', 'education', 'skills', 'interests', 'awards'
+        'about', 'blog', 'picture', 'skills', 'interests', 'awards'
       ],
-      isIndex: true
+      isIndex: true,
+      curPageName: ''
     }
   },
   methods: {
     init () {
+      let _this = this
+      // 动态给nav button添加事件
+      // 如果宽度 < 992px，则为移动端，添加data-toggle="collapse" properties
+      // 如果宽度 >= 992px，则为pc端，点击隐藏导航栏
+      let width = this.getDocumentWidth
+      if (width >= 992) {
+        $('button.navbar-toggler').on('click', function(event) {
+          let isCollapse = $('body').hasClass('body-full-set')
+          if(isCollapse) {
+            // 展开 -> 隐藏
+            $('body').removeClass('body-full-set').find('#sideNav').removeClass('hide')
+          } else {
+            // 隐藏 -> 展开
+            $('body').addClass('body-full-set').find('#sideNav').addClass('hide')
+          }
+          if(_this.curPageName === 'picture') {
+            console.log(_this.$refs.child.filterAll)
+            _this.$refs.child.filterAll.apply()
+          }
+        })
+      } else {
+        $('button.navbar-toggler').attr('data-toggle', 'collapse')
+      }
     }
   },
   watch: {
@@ -62,6 +86,12 @@ export default {
       const fromDepth = this.menu.findIndex(item => item === from.name)
       this.transitionName = toDepth < fromDepth ? 'slide-top' : 'slide-down'
       this.isIndex = to.path != '/' ? false : true
+      this.curPageName = this.menu[toDepth]
+    }
+  },
+  computed: {
+    getDocumentWidth () {
+      return window.innerWidth
     }
   },
   mounted () {

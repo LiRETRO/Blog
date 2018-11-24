@@ -3,13 +3,15 @@
 // 左侧导航栏文字颜色
 .navbar-dark .navbar-nav .nav-link { color: #c9cabb; }
 // 右侧主背景色
-.container-fluid { background-color: #f5f6eb; height: 100vh;}
+.container-fluid { background-color: #f5f6eb; min-height: 100%;}
 
 // 隐藏进度条
-body {
-  min-height: 100vh;
-  max-height: 100vh;
-  box-sizing: border-box;
-  overflow-y: scroll;
-  &::-webkit-scrollbar { display: none !important; }
+html {
+  height: 100%;
+  body {
+    height: 100%;
+    box-sizing: border-box;
+    overflow-y: scroll;
+    &::-webkit-scrollbar { display: none !important; }
+  }
 }

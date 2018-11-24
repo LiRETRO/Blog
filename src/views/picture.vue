@@ -96,12 +96,12 @@ export default {
   },
   methods: {
     init () {
-      var _this = this
+      let _this = this
       $('.portfolio-items').isotope({
         itemSelector: '.isotope-item',
         layoutMode: 'fitRows',
         masonry: {
-          columnWidth: 10
+          columnWidth: ''
         }
       })
       // Button Click Event
@@ -162,6 +162,14 @@ export default {
             $(".content-img").attr('src', _this.lightBoxImgArr[_this.lightBoxCurIndex].path)
           }
         }
+      })
+    },
+    filterAll () {
+      this.$nextTick(() => {
+        setTimeout(() => {
+        $('.portfolio-items').isotope({
+          filter: '*'
+        })}, 300)
       })
     }
   },

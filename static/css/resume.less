@@ -12,8 +12,13 @@ body {
 
 @media (min-width: 992px) {
   body {
+    transition: all .3s ease-in-out;
     padding-top: 0;
     padding-left: 17rem;
+  }
+
+  .body-full-set {
+    padding-left: 4.5rem;
   }
 }
 
@@ -93,10 +98,6 @@ p.lead {
   text-transform: uppercase;
 }
 
-#sideNav .navbar-toggler:focus {
-  outline-color: #d48a6e;
-}
-
 @media (min-width: 992px) {
   #sideNav {
     text-align: center;
@@ -112,6 +113,14 @@ p.lead {
     flex-direction: column;
     width: 17rem;
     height: 100vh;
+    transition: all .3s ease-in-out;
+    &.hide {
+      left: -12.5rem;
+      & > a.navbar-brand {
+        transition-delay: .3s;
+        visibility: hidden;
+      }
+    }
   }
   #sideNav .navbar-brand {
     display: -webkit-box;
@@ -151,6 +160,19 @@ p.lead {
   #sideNav .navbar-collapse .navbar-nav .nav-item .nav-link {
     display: block;
   }
+  #sideNav .navbar-toggler {
+    transition: all .3s ease-in-out;
+    display: block;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    outline: none;
+  }
+  
+  #sideNav .navbar-toggler:hover {
+    background-color: #00c1de; 
+  }
+
 }
 
 section.resume-section {
