@@ -38,6 +38,11 @@
         <router-view class="child-view" :v-show="!isIndex" ref="child"/>
       </transition>
     </div>
+    <!--音乐-->
+    <div class="video_exist play_yinfu" id="audio_btn" style="display: block;z-index:999999;">
+      <div id="yinfu" class="rotate"></div>
+      <audio preload="auto" autoplay id="media" src="../../../static/music/butterfly.mp3" loop="loop" volumn="0"></audio>
+    </div>
   </div>
 </template>
 
@@ -71,13 +76,25 @@ export default {
             $('body').addClass('body-full-set').find('#sideNav').addClass('hide')
           }
           if(_this.curPageName === 'picture') {
-            console.log(_this.$refs.child.filterAll)
             _this.$refs.child.filterAll.apply()
           }
         })
       } else {
         $('button.navbar-toggler').attr('data-toggle', 'collapse')
       }
+      this.audioAutoPlay('media');
+      $("#audio_btn").bind('click', function() {
+        $(this).hasClass("off") ? ($(this).addClass("play_yinfu").removeClass("off"), $("#yinfu").addClass("rotate"), $("#media")[0].play()) : ($(this).addClass("off").removeClass("play_yinfu"), $("#yinfu").removeClass("rotate"),
+        $("#media")[0].pause());
+      });
+    },
+    audioAutoPlay (id) {
+        var audio = document.getElementById(id);
+        audio.volumn = 0.5;
+        audio.play();
+        document.addEventListener("WeixinJSBridgeReady", function () {
+            audio.play();
+        }, false);
     }
   },
   watch: {
@@ -119,5 +136,84 @@ export default {
 }
 .fade-enter, .fade-leave-active {
   opacity: 0
+}
+
+// 音乐播放器
+#audio_btn {
+  position: fixed;
+  right: 20px;
+  top: 10px;
+  z-index: 200;
+  display: none;
+  width: 30px;
+  height: 30px;
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+.play_yinfu {
+  position: fixed;
+  right: 20px;
+  float: right;
+  top: 10px;
+  width: 30px;
+  height: 30px;
+  background-image: url("../../../static/images/music.gif");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: 60px 60px;
+}
+
+.rotate {
+  position: fixed;
+  right: 20px;
+  float: right;
+  top: 10px;
+  width: 30px;
+  height: 30px;
+  background-size: 100% 100%;
+  background-image: url("../../../static/images/music_off.png");
+  -webkit-animation: rotating 1.2s linear infinite;
+  -moz-animation: rotating 1.2s linear infinite;
+  -o-animation: rotating 1.2s linear infinite;
+  animation: rotating 1.2s linear infinite;
+}
+
+
+@-webkit-keyframes rotating {
+  from {
+      -webkit-transform: rotate(0deg);
+  }
+  to {
+      -webkit-transform: rotate(360deg);
+  }
+}
+
+@keyframes rotating {
+  from {
+      transform: rotate(0deg);
+  }
+  to {
+      transform: rotate(360deg);
+  }
+}
+
+@-moz-keyframes rotating {
+  from {
+      -moz-transform: rotate(0deg);
+  }
+  to {
+      -moz-transform: rotate(360deg);
+  }
+}
+
+.off {
+  position: fixed;
+  right: 10px;
+  float: right;
+  top: 1px;
+  background-size: 100% 100%;
+  background-image: url("../../../static/images/music_no.png");
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 </style>
