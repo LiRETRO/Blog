@@ -71,6 +71,7 @@ export default {
           border-bottom: #db6d4c 4px solid;
         }
         .blogs {
+          user-select: none;
           padding: 30px 0;
           position: relative;
           border-bottom: #BFAB86 1px solid;
