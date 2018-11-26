@@ -19,7 +19,7 @@ const actions = {
   },
   getBlogDetail ({ commit, state }, products) {
     affair.getBlogList(products).then(function (result) {
-      commit('setBlogDetail', result)
+      commit('setBlogDetail', result[0] || {})
     })
   }
 }

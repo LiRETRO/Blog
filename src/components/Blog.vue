@@ -21,7 +21,7 @@
 							</p>
 						</ul>
 					</div>
-          <ol class="page-navigator"><li class="current"><a href="https://liangxingjian.com/page/1/">1</a></li><li><a href="https://liangxingjian.com/page/2/">2</a></li><li><a href="https://liangxingjian.com/page/3/">3</a></li><li><a href="https://liangxingjian.com/page/4/">4</a></li><li><span>...</span></li><li><a href="https://liangxingjian.com/page/9/">9</a></li><li class="next"><a href="https://liangxingjian.com/page/2/">后一页 »</a></li></ol>
+          <ol class="page-navigator"><li class="current"><a href="">1</a></li><li><a href="">2</a></li><li><a href="">3</a></li><li><a href="">4</a></li><li><span>...</span></li><li><a href="">9</a></li><li class="next"><a href="">后一页 »</a></li></ol>
 				</div>
 			</div>
 			<!-- <div class="r_box">

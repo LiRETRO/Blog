@@ -131,7 +131,7 @@ export default {
   opacity: 0;
 }
 .fade-enter-active, .fade-leave-active {
-  transition: opacity .5s ease;
+  transition: opacity .3s ease;
 }
 .fade-enter, .fade-leave-active {
   opacity: 0
