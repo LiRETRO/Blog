@@ -1,4 +1,4 @@
-import { isAbsolute } from 'path';
+import { isAbsolute } from 'path'
 
 const Layout = () => import ('@/components/Layout/Layout.vue')
 const pic = () => import ('@/views/pic.vue')
@@ -41,15 +41,15 @@ export default [
         component: blog,
         meta: {
           title: '博客'
-        },
-        children: [{
-          path: '/detail/:id',
-          name: 'blogDetail',
-          component: blogDetail,
-          meta: {
-            title: '正文'
-          }
-        }]
+        }
+      },
+      {
+        path: '/detail/:id',
+        name: 'blogDetail',
+        component: blogDetail,
+        meta: {
+          title: '正文'
+        }
       },
       {
         path: '/picture',

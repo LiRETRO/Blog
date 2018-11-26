@@ -39,9 +39,9 @@
       </transition>
     </div>
     <!--音乐-->
-    <div class="video_exist play_yinfu" id="audio_btn" style="display: block;z-index:999999;">
-      <div id="yinfu" class="rotate"></div>
-      <audio preload="auto" autoplay id="media" src="../../../static/music/butterfly.mp3" loop="loop" volumn="0"></audio>
+    <div class="video_exist off" id="audio_btn" style="display: block;z-index:999999;">
+      <div id="yinfu"></div>
+      <audio preload="auto" id="media" src="../../../static/music/butterfly.mp3" loop="loop" volumn="0"></audio>
     </div>
   </div>
 </template>
@@ -90,20 +90,19 @@ export default {
     },
     audioAutoPlay (id) {
         var audio = document.getElementById(id);
-        audio.volumn = 0.5;
-        audio.play();
-        document.addEventListener("WeixinJSBridgeReady", function () {
-            audio.play();
-        }, false);
     }
   },
   watch: {
     '$route' (to, from) {
-      const toDepth = this.menu.findIndex(item => item === to.name)
-      const fromDepth = this.menu.findIndex(item => item === from.name)
-      this.transitionName = toDepth < fromDepth ? 'slide-top' : 'slide-down'
-      this.isIndex = to.path != '/' ? false : true
-      this.curPageName = this.menu[toDepth]
+      if (to.name !== 'blogDetail') {
+        const toDepth = this.menu.findIndex(item => item === to.name)
+        const fromDepth = this.menu.findIndex(item => item === from.name)
+        this.transitionName = toDepth < fromDepth ? 'slide-top' : 'slide-down'
+        this.isIndex = to.path != '/' ? false : true
+        this.curPageName = this.menu[toDepth]
+      } else {
+        this.transitionName = "fade"
+      }
     }
   },
   computed: {
