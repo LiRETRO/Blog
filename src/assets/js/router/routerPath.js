@@ -1,6 +1,7 @@
 import { isAbsolute } from 'path'
 
 const Layout = () => import ('@/components/Layout/Layout.vue')
+const PublishBlog = () => import ('@/components/Layout/PublishBlog.vue')
 const pic = () => import ('@/views/pic.vue')
 const about = () => import ('@/views/about.vue')
 const blog = () => import ('@/views/blog/blog.vue')
@@ -11,6 +12,14 @@ const interests = () => import ('@/views/interests.vue')
 const awards = () => import ('@/views/awards.vue')
 
 export default [
+  {
+    path: '/publishBlog',
+    name: 'privatePublish',
+    component: PublishBlog,
+    meta: {
+      title: '发布博客'
+    }
+  },
   {
     path: '/',
     name: 'Index',
