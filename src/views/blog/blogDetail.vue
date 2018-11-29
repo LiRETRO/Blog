@@ -9,7 +9,7 @@
           <span>{{ new Date(blogDetail.blogPublishDate).Format('yyyy-MM-dd hh:mm') }}</span>
         </p>
       </div>
-      <div class="blog-article-bd">
+      <div class="blog-article-bd" v-html="blogDetail.blogContent">
         <p>{{ blogDetail.blogContent }}</p>
       </div>
     </article>

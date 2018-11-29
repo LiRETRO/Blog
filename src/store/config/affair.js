@@ -18,8 +18,8 @@ const actions = {
     })
   },
   getBlogDetail ({ commit, state }, products) {
-    affair.getBlogList(products).then(function (result) {
-      commit('setBlogDetail', result[0] || {})
+    affair.getBlogDetail(products).then(function (result) {
+      commit('setBlogDetail', result)
     })
   }
 }
@@ -29,6 +29,7 @@ const mutations = {
     state.blogList = payload.list
   },
   setBlogDetail (state, payload) {
+    console.log(payload)
     state.blogDetail = payload
   }
 }

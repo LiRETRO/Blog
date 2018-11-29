@@ -137,6 +137,10 @@ export default {
   opacity: 0
 }
 
+.main {
+  height: 100%;
+}
+
 // 音乐播放器
 #audio_btn {
   position: fixed;

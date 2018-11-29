@@ -26,7 +26,6 @@ import './util/date.js'
 import TimeLine from './components/TimeLine'
 
 Vue.use(Vuex)
-
 // 注册全局公用组件
 Vue.component('TimeLine', TimeLine)
 

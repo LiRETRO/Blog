@@ -13,14 +13,6 @@ const awards = () => import ('@/views/awards.vue')
 
 export default [
   {
-    path: '/publishBlog',
-    name: 'privatePublish',
-    component: PublishBlog,
-    meta: {
-      title: '发布博客'
-    }
-  },
-  {
     path: '/',
     name: 'Index',
     component: Layout,
@@ -90,6 +82,14 @@ export default [
         component: awards,
         meta: {
           title: 'awards'
+        }
+      },
+      {
+        path: '/publishBlog',
+        name: 'privatePublish',
+        component: PublishBlog,
+        meta: {
+          title: '发布博客'
         }
       },
     ]
