@@ -1,6 +1,8 @@
 import axios from 'axios'
+import config from './config'
 
 axios.interceptors.request.use(function (request) {
+  request.baseURL = config.serviceIp
   // Successed
   request.transformRequest = function (data) {
     if (data) {
