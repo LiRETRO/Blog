@@ -142,6 +142,7 @@ export default {
         _this.lightBoxImgArr = []
         _this.lightBoxVisibleElementArr = []
         _this.lightBoxCurIndex = 0
+        $('img.content-img').attr('src', '')
       })
       // prev and next button
       $("div.lightbox-overlay a.lightbox-nav").on('click', function(event) {
@@ -169,7 +170,7 @@ export default {
         setTimeout(() => {
         $('.portfolio-items').isotope({
           filter: '*'
-        })}, 300)
+        })}, 350)
       })
     }
   },
