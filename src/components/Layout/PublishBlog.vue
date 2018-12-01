@@ -55,11 +55,12 @@ export default {
         padding: 0 2rem;
         display: flex;
         flex-direction: column;
-        background: url(../../../static/images/publishBlogBg.jpg);
+        background: url(../../../static/images/publishBlogBg.jpg) no-repeat;
+        background-size: 100% 100%;
         .title-container {
-            width: 100%;
+            width: 70%;
             height: auto;
-            margin: auto 0 10px;
+            margin: auto auto 10px;
             display: block;
             input {
                 width: 100%;
@@ -84,17 +85,18 @@ export default {
         }
         #blogEditor {
             display: block;
-            width: 100%;
+            width: 70%;
             height: auto;
+            margin: 0 auto;
             .w-e-text-container {
                 background-color: white !important;
                 min-height: 350px;
             }
         }
         .but-container {
-            width: 100%;
+            width: 70%;
             height: auto;
-            margin: 10px 0 auto;
+            margin: 10px auto auto;
             display: block;
             a {
                 animation-name: change;
