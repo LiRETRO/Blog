@@ -21,7 +21,20 @@
 							</p>
 						</ul>
 					</div>
-          <ol class="page-navigator"><li class="current"><a href="">1</a></li><li><a href="">2</a></li><li><a href="">3</a></li><li><a href="">4</a></li><li><span>...</span></li><li><a href="">9</a></li><li class="next"><a href="">后一页 »</a></li></ol>
+          <ol class="page-navigator">
+            <span style="float: left;">【已显示{{(pageIndex - 1) * pageSizeData + 1 + '至' + (pageIndex === Math.ceil(total / pageSizeData) ? total : pageIndex * pageSizeData) + '项结果' }}】共{{Math.ceil(total / pageSizeData)}}页</span>
+            <li class="prev" v-show="notFirstPage">
+              <a href="" @click="prev"><i class="iconfont icon-jiantou_shangyiye" />上一页</a>
+            </li>
+            <template v-for="(item, index) of pageShowLimit" >
+              <li class="current" :key="item">
+                <a href="">{{ item }}</a>
+              </li>
+            </template>
+            <li class="next" v-show="notLastPage">
+              <a href="" @click="next">后一页<i class="iconfont icon-jiantou_xiayiye"/></a>
+            </li>
+          </ol>
 				</div>
 			</div>
 			<!-- <div class="r_box">
@@ -34,17 +47,45 @@
 export default {
   props: {
     'title': String,
-    'data': Array
+    'pageSize': {
+      type: Number,
+      default: 10
+    },
+    'data': Array,
+    'totalRecord': Number,
+    'onPageChange': Function
   },
   data () {
     return {
+      pageIndex: 1,                       // 当前页
+      pageShowLimit: 11,                  // 显示多少页码
+      curLastPage: 0,
+      curFirstPage: 0,
+      pageSizeData: this.$props.pageSize, // 每页显示数据量
+      notFirstPage: false,                
+      notLastPage: false,
+      pageArr: []
     }
   },
   methods: {
     init () {
-      if(Object.prototype.toString.call(this.data) !== '[object Array]') {
-        this.data = []
-      }
+      this.pageShowLimit = Math.ceil(this.total / this.pageSizeData) >= 11 ? 11 : Math.ceil(this.total / this.pageSizeData)
+      this.notFirstPage = this.pageIndex === 1 ? false : true
+      this.notLastPage = this.pageIndex === Math.ceil(this.total / this.pageSizeData) ? false : true
+    },
+    prev () {
+
+    },
+    next () {
+
+    },
+    calcuCurPageLimit () {
+      
+    }
+  },
+  computed: {
+    total () {
+      return this.$props.totalRecord
     }
   },
   created () {
@@ -62,7 +103,7 @@ export default {
       width: 100%;
       float: left;
       .topnews {
-        h2 {
+        & > h2 {
           text-align: left;
           font-size: 16px;
           font-weight: bold;
@@ -147,6 +188,13 @@ export default {
           li {
             display: inline-block;
             margin: 0 4px;
+            &.current {
+              a {
+                text-decoration: underline;
+                color: #333;
+                cursor: default;
+              }
+            }
           }
           a {
             display: inline-block;
@@ -155,7 +203,6 @@ export default {
             line-height: 30px;
             text-decoration: none;
           }
-
         }
       }
     }
