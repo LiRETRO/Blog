@@ -12,10 +12,10 @@
 			<a href="#" class="close-button" title="close"><span>Close</span></a>	
 	   	<h3>LiRETRO.</h3>  
 			<ul class="nav-list">
-				<li class="current"><router-link class="smoothscroll" to="/">Main</router-link></li>
-				<li><router-link class="smoothscroll" to="/about">About</router-link></li>
-				<li><router-link class="smoothscroll" to="/blog">Blog</router-link></li>
-				<li><router-link class="smoothscroll" to="/picture">Picture</router-link></li>
+				<li class="current" name="Index"><router-link class="smoothscroll" to="/" replace>Main</router-link></li>
+				<li name="about"><router-link class="smoothscroll" to="/about" replace>About</router-link></li>
+				<li name="blog"><router-link class="smoothscroll" to="/blog" replace>Blog</router-link></li>
+				<li name="picture"><router-link class="smoothscroll" to="/picture" replace>Picture</router-link></li>
 			</ul>	
       <!-- <ul class="header-social-list">
         <li>
@@ -137,6 +137,11 @@ export default {
         event.stopPropagation()
         _this.toggle()
       })
+      // $('ul.nav-list').delegate('li', 'click', function (event) {
+      //   if (!$(this).hasClass('current')) {
+      //     $(this).addClass('current').siblings().removeClass('current')
+      //   }
+      // })
       // $(document).on('click', ':not(#menu-nav-wrap), :not(#header-menu-trigger)', function (event) {
       //   event.stopPropagation()
       //   let flag = $('body').hasClass('menu-is-open')
@@ -172,6 +177,7 @@ export default {
       } else {
         this.transitionName = "fade"
       }
+      $(`.nav-list li[name=${to.name}]`).addClass('current').siblings().removeClass('current')
     }
   },
   computed: {
@@ -313,7 +319,7 @@ export default {
       color: rgba(255, 255, 255, 0.25);
       font-family: "montserrat-regular", sans-serif;
       font-size: 1.5rem;
-      line-height: 1.6;
+      line-height: 1.5;
       padding: 3rem 2.5rem;
       text-align: left;
       height: 100%;
@@ -404,6 +410,12 @@ export default {
           &:first-child {
             border-top: 1px dotted rgba(255, 255, 255, 0.03);
           }
+          &.current {
+            & > a {
+              color: orange;
+              text-decoration: underline;
+            }
+          }
           a {
             color: rgba(255, 255, 255, 0.25);
             display: block;
@@ -440,7 +452,7 @@ export default {
 #audio_btn {
   position: fixed;
   right: 20px;
-  top: 10px;
+  top: 30px;
   z-index: 200;
   display: none;
   width: 30px;
@@ -452,7 +464,7 @@ export default {
   position: fixed;
   right: 20px;
   float: right;
-  top: 10px;
+  top: 30px;
   width: 30px;
   height: 30px;
   background-image: url("../../../static/images/music.gif");
@@ -465,7 +477,7 @@ export default {
   position: fixed;
   right: 20px;
   float: right;
-  top: 10px;
+  top: 30px;
   width: 30px;
   height: 30px;
   background-size: 100% 100%;

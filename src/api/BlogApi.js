@@ -7,3 +7,14 @@ export function publishBlog (blogObj) {
         data: blogObj
     })
 }
+
+export function getBlogList (query) {
+    return request.request({
+        url: '/api/blog/getBlogList',
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        data: query
+    })
+}

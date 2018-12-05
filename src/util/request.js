@@ -5,6 +5,11 @@ axios.interceptors.request.use(function (request) {
   request.baseURL = config.serviceIp
   // Successed
   request.transformRequest = function (data) {
+    for (let key in request.headers) {
+      if (key === 'Content-Type' && request.headers[key] === 'application/json') {
+        return JSON.stringify(request.data)
+      }
+    }
     if (data) {
       let stringify = ''
       for (var i of Object.keys(data)) {

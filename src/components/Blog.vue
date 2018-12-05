@@ -58,7 +58,7 @@ export default {
   data () {
     return {
       pageIndex: 1,                       // 当前页
-      pageShowLimit: 11,                  // 显示多少页码
+      pageShowLimit: 6,                  // 显示多少页码
       curLastPage: 0,
       curFirstPage: 0,
       pageSizeData: this.$props.pageSize, // 每页显示数据量
