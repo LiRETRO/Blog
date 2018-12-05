@@ -1,7 +1,7 @@
 <template>
   <section class="resume-section p-3 p-lg-5 d-flex flex-column" id="blog">
     <!-- <TimeLine :data="blogList" orientation='horizontal' :eventsPerSlide="8"></TimeLine> -->
-		<blog-content title="技术分享" :data="blogDataList" :pageSize="10" :totalRecord="10"></blog-content>
+		<blog-content title="技术分享" :data="blogDataList" :pageSize="query.page.pageSize" :totalRecord="totalNum" @onPageChange="onPageChange"></blog-content>
   </section>
 </template>
 
@@ -13,11 +13,11 @@ export default {
     return {
       query: {
         page: {
-          pageSize: 5,
-          pageNum: 2
-        },
-        resultCode: 'success'
+          pageSize: 6,
+          pageNum: 1
+        }
       },
+      totalNum: 0,
       blogDataList: []
     }
   },
@@ -27,11 +27,14 @@ export default {
     },
     fetchList (query) {
       let _this = this
-      console.log('getApi')
       getBlogList(query).then(data => {
-        console.log(data)
-        _this.blogDataList = data
+        _this.blogDataList = data.resultObj
+        _this.totalNum = data.page.totalNum
       })
+    },
+    onPageChange (pageNum) {
+      this.query.page['pageNum'] = pageNum
+      this.fetchList(this.query)
     }
 	},
 	components: {

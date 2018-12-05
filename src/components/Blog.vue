@@ -22,18 +22,17 @@
 						</ul>
 					</div>
           <ol class="page-navigator">
-            <span style="float: left;">【已显示{{(pageIndex - 1) * pageSizeData + 1 + '至' + (pageIndex === Math.ceil(total / pageSizeData) ? total : pageIndex * pageSizeData) + '项结果' }}】共{{Math.ceil(total / pageSizeData)}}页</span>
-            <li class="prev" v-show="notFirstPage">
-              <a href="" @click="prev"><i class="iconfont icon-jiantou_shangyiye" />上一页</a>
+            <span style="float: left;">【已显示{{(pageNum - 1) * pageSizeData + 1 + '至' + (pageNum === Math.ceil(total / pageSizeData) ? total : pageNum * pageSizeData) + '项结果' }}】共{{Math.ceil(total / pageSizeData)}}页</span>
+            <span style="float: right;">
+            <li class="previous" >
+              <a href=""><i class="iconfont icon-jiantou_shangyiye" />上一页</a>
             </li>
-            <template v-for="(item, index) of pageShowLimit" >
-              <li class="current" :key="item">
-                <a href="">{{ item }}</a>
-              </li>
-            </template>
-            <li class="next" v-show="notLastPage">
-              <a href="" @click="next">后一页<i class="iconfont icon-jiantou_xiayiye"/></a>
+            <article ref="pages" style="display: inline-block;"></article>
+            <li class="next" >
+              <a href="">后一页<i class="iconfont icon-jiantou_xiayiye"/></a>
             </li>
+            <input  placeholder="前往" class="jumpPage"/>
+            </span>
           </ol>
 				</div>
 			</div>
@@ -57,39 +56,170 @@ export default {
   },
   data () {
     return {
-      pageIndex: 1,                       // 当前页
-      pageShowLimit: 6,                  // 显示多少页码
-      curLastPage: 0,
-      curFirstPage: 0,
+      pageNum: 1,                         // 当前页
+      pageShowLimit: 6,                   // 最大显示页数
       pageSizeData: this.$props.pageSize, // 每页显示数据量
-      notFirstPage: false,                
-      notLastPage: false,
-      pageArr: []
     }
   },
   methods: {
-    init () {
-      this.pageShowLimit = Math.ceil(this.total / this.pageSizeData) >= 11 ? 11 : Math.ceil(this.total / this.pageSizeData)
-      this.notFirstPage = this.pageIndex === 1 ? false : true
-      this.notLastPage = this.pageIndex === Math.ceil(this.total / this.pageSizeData) ? false : true
-    },
-    prev () {
+    drawPage () {
+      // 最大页数
+      const totalPage = Math.ceil(this.total / this.pageSizeData)
+      const pageContainer = this.$refs['pages']
+      const id = 'pages'
+      $(pageContainer).empty()
+      if (this.totalPage <= this.pageShowLimit) {
+        for (var i = 1; i <= this.totalPage; i++) {
+          var li_page = $(this.template.li_page)
+          var li_page_a = $(this.template.li_page_a.format(id, i))
+          li_page.append(li_page_a)
+          $(pageContainer).append(li_page)
+        }
+      } else {
+        if (this.pageNum < this.pageShowLimit - 2) {
+          //后省略
+          for (var i = 1; i <= this.pageShowLimit - 2; i++) {
+            var li_page = $(this.template.li_page)
+            var li_page_a = $(this.template.li_page_a.format(id, i))
+            li_page.append(li_page_a)
+            $(pageContainer).append(li_page)
+          }
+          var li_dots = $(this.template.li_dots)
+          var li_dots_a = $(this.template.li_dots_a.format(id, totalPage - 1, '...'))
+          li_dots.append(li_dots_a)
+          $(pageContainer).append(li_dots)
 
-    },
-    next () {
+          var li_page = $(this.template.li_page)
+          var li_page_a = $(this.template.li_page_a.format(id, totalPage))
+          li_page.append(li_page_a)
+          $(pageContainer).append(li_page)
+        } else if (this.pageNum > totalPage - this.pageShowLimit + 3) {
+          //前省略
+          var li_page = $(this.template.li_page);
+          var li_page_a = $(this.template.li_page_a.format(id, 1));
+          li_page.append(li_page_a);
+          $(pageContainer).append(li_page);
 
+          var li_dots = $(this.template.li_dots);
+          var li_dots_a = $(this.template.li_dots_a.format(id, 2, '...'));
+          li_dots.append(li_dots_a);
+          $(pageContainer).append(li_dots);
+
+          for (var i = totalPage - this.pageShowLimit + 3; i <= totalPage; i++) {
+            var li_page = $(this.template.li_page);
+            var li_page_a = $(this.template.li_page_a.format(id, i));
+            li_page.append(li_page_a);
+            $(pageContainer).append(li_page);
+          }
+        } else {
+          //前后都省略，中间当前页
+          var li_page = $(this.template.li_page);
+          var li_page_a = $(this.template.li_page_a.format(id, 1));
+          li_page.append(li_page_a);
+          $(pageContainer).append(li_page);
+
+          var li_dots = $(this.template.li_dots);
+          var li_dots_a = $(this.template.li_dots_a.format(id, 2, '...'));
+          li_dots.append(li_dots_a);
+          $(pageContainer).append(li_dots);
+          for (var i = this.pageNum - 2; i <= this.pageNum + 2; i++) {
+            var li_page = $(this.template.li_page);
+            var li_page_a = $(this.template.li_page_a.format(id, i));
+            li_page.append(li_page_a);
+            $(pageContainer).append(li_page);
+          }
+
+          var li_dots = $(this.template.li_dots);
+          var li_dots_a = $(this.template.li_dots_a.format(id, totalPage - 1, '...'));
+          li_dots.append(li_dots_a);
+          $(pageContainer).append(li_dots);
+
+          var li_page = $(this.template.li_page);
+          var li_page_a = $(this.template.li_page_a.format(id, totalPage));
+          li_page.append(li_page_a);
+          $(pageContainer).append(li_page);
+        }
+      }
+      this.bindEvent()
     },
-    calcuCurPageLimit () {
-      
+    bindPermanentEvent () {
+      const $pageNavigator = $('ol.page-navigator')
+      const _this = this
+      $pageNavigator.find("li.next a").click(function (event) {
+        event.preventDefault()
+        if (_this.pageNum == _this.totalPage)
+            return;
+        _this.pageNum = _this.pageNum + 1
+        _this.$emit('onPageChange', _this.pageNum)
+      })
+
+      $pageNavigator.find("li.previous a").click(function (event) {
+        event.preventDefault()
+        if (_this.pageNum === 1)
+            return;
+        _this.pageNum = _this.pageNum - 1
+        _this.$emit('onPageChange', _this.pageNum)
+      })
+      $pageNavigator.find('input.jumpPage').on('keydown', function (event) {
+        if (event.keyCode !== 8 && event.keyCode !== 13 && event.keyCode !== 46 && !/\d/.test(parseInt(event.key))) {
+          return false
+        }
+        // 按下回车进行跳转
+        if (event.keyCode === 13) {
+          event.preventDefault()
+          const pageNum = parseInt($(this).val())
+          if (pageNum > 0 && pageNum <= _this.totalPage) {
+            _this.pageNum = pageNum
+            _this.$emit('onPageChange', _this.pageNum)
+            $(this).val('')
+          } else {
+            $(this).val('')
+          }
+        }
+      })
+    },
+    bindEvent () {
+      const _this = this;
+      $(this.$refs['pages']).find("li a").not(".disabled").not(".next").not(".previous").each(function (index, item) {
+        $(item).click(function () {
+          var pageNum = parseInt($(this).text())
+          _this.$emit('onPageChange', pageNum)
+          _this.pageNum = pageNum
+        })
+      })
     }
   },
   computed: {
     total () {
       return this.$props.totalRecord
+    },
+    totalPage () {
+      return Math.ceil(this.total / this.pageSizeData)
+    },
+    template () {
+      return {
+        ul: '<ul class="pagination">',
+        li_pre: '<li class="paginate_button previous disabled" id="{0}_previous"></li>',
+        li_pre_a: '<a href="javascript:void(0)" class="previous" style="" aria-controls="{0}" data-dt-idx="0" tabindex="0">上一页</a>',
+        li_page: '<li class="paginate_button"></li>',
+        li_page_a: '<a href="javascript:void(0)"  aria-controls="{0}" data-dt-idx="{1}" tabindex="{1}">{1}</a>',
+        li_dots: '<li class="paginate_button"></li>',
+        li_dots_a: '<a href="javascript:void(0)"  aria-controls="{0}" class="disabled" tabindex="{1}">{2}</a>',
+        li_next: '<li class="paginate_button next disabled" id="{0}_next"></li>',
+        li_next_a: '<a href="javascript:void(0)" class="next"  aria-controls="{0}" data-dt-idx="{1}" tabindex="{1}">下一页</a>'
+      }
     }
   },
-  created () {
-    this.init()
+  watch: {
+    total () {
+      this.drawPage()
+    },
+    pageNum (newVal) {
+      this.drawPage()
+    }
+  },
+  mounted () {
+    this.bindPermanentEvent()
   }
 }
 </script>
@@ -198,10 +328,18 @@ export default {
           }
           a {
             display: inline-block;
-            padding: 0 10px;
+            padding: 0 5px;
             height: 30px;
             line-height: 30px;
             text-decoration: none;
+            outline: none;
+            &:link, &:visited {
+              text-decoration: none;
+            }
+          }
+          .jumpPage {
+            width: 40px;
+            outline: none;
           }
         }
       }

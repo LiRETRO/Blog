@@ -18,3 +18,7 @@ export function getBlogList (query) {
         data: query
     })
 }
+
+export function getBlogDetail (id) {
+    return request.get(`api/blog/getBlogDetail?id=${id}`)
+}

@@ -142,11 +142,11 @@ export default {
       //     $(this).addClass('current').siblings().removeClass('current')
       //   }
       // })
-      // $(document).on('click', ':not(#menu-nav-wrap), :not(#header-menu-trigger)', function (event) {
-      //   event.stopPropagation()
-      //   let flag = $('body').hasClass('menu-is-open')
-      //   flag && _this.toggle()
-      // })
+      $('div.container-fluid').on('click', function (event) {
+        event.stopPropagation()
+        let flag = $('body').hasClass('menu-is-open')
+        flag && _this.toggle()
+      })
       // 音乐按钮
       this.audioAutoPlay('media');
       $("#audio_btn").bind('click', function() {
@@ -178,6 +178,8 @@ export default {
         this.transitionName = "fade"
       }
       $(`.nav-list li[name=${to.name}]`).addClass('current').siblings().removeClass('current')
+      let flag = $('body').hasClass('menu-is-open')
+      flag && this.toggle()
     }
   },
   computed: {

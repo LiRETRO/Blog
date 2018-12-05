@@ -17,28 +17,23 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { getBlogDetail } from '@/api/BlogApi'
 export default {
   data () {
     return {
-
+      blogDetail: {}
     }
   },
   computed: {
-    ...mapGetters([
-      'blogDetail'
-    ]),
     blogId () {
       return this.$route.params.id
     }
   },
   methods: {
-    ...mapActions([
-      'getBlogDetail'
-    ]),
     init () {
       let _this = this
-      this.getBlogDetail(this.blogId).then(function () {
+      getBlogDetail(this.blogId).then(function (data) {
+        _this.blogDetail = data.resultObj
       })
     }
   },
