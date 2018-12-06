@@ -4,7 +4,7 @@
       <div class="blog-article-hd">
         <h2 class="blog-title">{{ blogDetail.blogTitle }}</h2>
         <p class="blog-meta">
-          <span>2251次阅读</span>
+          <span>{{ blogDetail.blogVisitedCount }}次阅读</span>
           &nbsp;-&nbsp;
           <span>{{ new Date(blogDetail.blogPublishDate).Format('yyyy-MM-dd hh:mm') }}</span>
         </p>

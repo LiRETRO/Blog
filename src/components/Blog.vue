@@ -17,7 +17,7 @@
 							<p class="content" v-else v-html="item.blogContent">{{ item.blogContent }}</p>
 							<p class="author">
 								<span class="blog_time iconfont icon-publishtime">{{ new Date(item.blogPublishDate).Format('yyyy-MM-dd hh:mm') }}</span>
-								<span class="viewnum iconfont icon-read">浏览（2251）</span>
+								<span class="viewnum iconfont icon-read">浏览（{{ item.blogVisitedCount }}）</span>
 							</p>
 						</ul>
 					</div>
