@@ -22,7 +22,7 @@
 						</ul>
 					</div>
           <ol class="page-navigator">
-            <span style="float: left;">【已显示{{(pageNum - 1) * pageSizeData + 1 + '至' + (pageNum === Math.ceil(total / pageSizeData) ? total : pageNum * pageSizeData) + '项结果' }}】共{{Math.ceil(total / pageSizeData)}}页</span>
+            <span style="float: left;">【已显示{{ data.length !== 0 ? (pageNum - 1) * pageSizeData + 1 + '至' + (pageNum === Math.ceil(total / pageSizeData) ? total : pageNum * pageSizeData) + '项结果' : '0至0项结果' }}】共{{ Math.ceil(total / pageSizeData) }}页</span>
             <span style="float: right;">
             <li class="previous" >
               <a href=""><i class="iconfont icon-jiantou_shangyiye" />上一页</a>
