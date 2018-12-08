@@ -8,6 +8,7 @@
 <script>
 import blogContent from '@/components/Blog.vue'
 import { getBlogList } from '@/api/BlogApi'
+import { mapGetters, mapActions } from 'vuex'
 export default {
   data () {
     return {
@@ -21,7 +22,15 @@ export default {
       blogDataList: []
     }
   },
+  computed: {
+    ...mapGetters([
+      'ipJson'
+    ])
+  },
   methods: {
+    ...mapActions([
+      'getLocalIp'
+    ]),
     init () {
 				this.fetchList(this.query)
     },

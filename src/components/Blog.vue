@@ -13,8 +13,8 @@
 							<h3>
 								<router-link :to="'/detail/' + item.blogId" :title="item.blogTitle">{{ item.blogTitle }}</router-link>
 							</h3>
-							<p class="content" v-if="item.blogContent.length > 120" v-html="item.blogContent">{{ item.blogContent.substring(0, 120)}}</p>
-							<p class="content" v-else v-html="item.blogContent">{{ item.blogContent }}</p>
+							<p class="content" v-if="item.blogContent.length > 120" v-html="item.blogContent.substring(0, 120)"></p>
+							<p class="content" v-else v-html="item.blogContent"></p>
 							<p class="author">
 								<span class="blog_time iconfont icon-publishtime">{{ new Date(item.blogPublishDate).Format('yyyy-MM-dd hh:mm') }}</span>
 								<span class="viewnum iconfont icon-read">浏览（{{ item.blogVisitedCount }}）</span>
@@ -290,7 +290,7 @@ export default {
               word-break: break-all;
               text-align: left;
               font-size: 0.96rem;
-              height: 90px;
+              height: 102px;
             }
             p.author {
               overflow: hidden;

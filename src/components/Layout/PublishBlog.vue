@@ -39,7 +39,11 @@ export default {
                 alert('请输入内容！')
                 return false
             }
-            publishBlog( { blogTitle: title, blogContent: content } )
+            publishBlog( { blogTitle: title, blogContent: content } ).then(data => {
+                if (data.resultCode === 'success') {
+                    alert(data.resultMessage)
+                }
+            })
         }
     },
     mounted () {
