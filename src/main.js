@@ -19,7 +19,7 @@ import '../static/css/jquery.roadmap.min.css'
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import '../node_modules/bootstrap/dist/js/bootstrap.min.js'
 // 引入resume
-import '../static/css/resume.less'
+import '../static/css/newStyle.less'
 // iconfont
 import '../static/css/iconfont.css'
 // 插件

@@ -1,74 +1,31 @@
 <template>
   <div class="main" id="page-top">
     <header> 
-   	<!-- <div class="header-logo">
-	    <router-link to="/">LiRETRO</router-link>
-	  </div>  -->
-		<a id="header-menu-trigger" class="black-style" href="#">
-		 	<span class="header-menu-text">Menu</span>
-		  <span class="header-menu-icon"></span>
-		</a> 
-		<nav id="menu-nav-wrap">
-			<a href="#" class="close-button" title="close"><span>Close</span></a>	
-	   	<h3>LiRETRO.</h3>  
-			<ul class="nav-list">
-				<li class="current" name="Index"><router-link class="smoothscroll" to="/" replace>Main</router-link></li>
-				<li name="about"><router-link class="smoothscroll" to="/about" replace>About</router-link></li>
-				<li name="blog"><router-link class="smoothscroll" to="/blog" replace>Blog</router-link></li>
-				<li name="picture"><router-link class="smoothscroll" to="/picture" replace>Picture</router-link></li>
-			</ul>	
-      <!-- <ul class="header-social-list">
-        <li>
-        <a href="#"><i class="fa fa-facebook-square"></i></a>
-        </li>
-        <li>
-        <a href="#"><i class="fa fa-twitter"></i></a>
-        </li>
-        <li>
-          <a href="#"><i class="fa fa-behance"></i></a>
-        </li>
-        <li>
-        <a href="#"><i class="fa fa-dribbble"></i></a>
-        </li>
-        <li>
-        <a href="#"><i class="fa fa-instagram"></i></a>
-        </li>
-      </ul>		 -->
-		</nav> 
-	</header>
-    <!-- <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-top" id="sideNav">
-      <router-link class="navbar-brand js-scroll-trigger" to="/">
-        <span class="d-block d-lg-none">Clarence Taylor</span>
-        <span class="d-none d-lg-block">
-          <img class="img-fluid img-profile rounded-circle mx-auto mb-2" src="../../../static/images/head.png" alt="">
-        </span>
-      </router-link>
-      <button class="navbar-toggler" type="button" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav">
-          <li class="nav-item">
-            <router-link class="nav-link js-scroll-trigger" to="/about">About</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link js-scroll-trigger" to="/blog">Blog</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link js-scroll-trigger" to="/picture">Picture</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link js-scroll-trigger" to="/skills">Skills</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link js-scroll-trigger" to="/interests">Interests</router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link js-scroll-trigger" to="/awards">Awards</router-link>
-          </li>
-        </ul>
+        <div class="menu">
+          <nav class="nav" id="topnav">
+            <h1 class="logo"><router-link id="topnav_current" class="smoothscroll" to="/" replace>LiRETRO</router-link></h1>
+            <li name="blog"><router-link class="smoothscroll" to="/blog" replace><h3>博客</h3></router-link></li>
+            <li name="picture"><router-link class="smoothscroll" to="/picture" replace><h3>展示</h3></router-link></li>
+            <li style="float: right;" class="">
+                <span class="avatar" style="margin: 0px auto 2px;width: auto;">
+                    <span><a href="/login">登录</a>/<a href="/register">注册</a></span>
+                </span>
+            </li>
+            <!--search begin-->
+            <div id="search_bar" class="search_bar" style="display:none;">
+                <form id="searchform" action="/nav/search" method="post" name="searchform">
+                    <input class="input" placeholder="想搜点什么呢..." type="text" name="keyboard" id="keyboard">
+                    <input type="hidden" name="show" value="title">
+                    <input type="hidden" name="tempid" value="1">
+                    <input type="hidden" name="tbname" value="news">
+                    <input type="hidden" name="Submit" value="搜索">
+                    <span class="search_ico"></span>
+                </form>
+            </div>
+            <!--search end-->
+          </nav>
       </div>
-    </nav> -->
+	  </header>
     <div class="container-fluid p-0">
       <transition :name="transitionName" mode="out-in" >
         <router-view class="child-view" :v-show="!isIndex" ref="child"/>
@@ -156,14 +113,6 @@ export default {
     },
     audioAutoPlay (id) {
         var audio = document.getElementById(id);
-    },
-    toggle () {
-      let flag = $('body').hasClass('menu-is-open')
-      if (flag) {
-        $('body').removeClass('menu-is-open').find('#header-menu-trigger').removeClass('is-clicked')
-      } else {
-        $('body').addClass('menu-is-open').find('#header-menu-trigger').addClass('is-clicked')
-      }
     }
   },
   watch: {
@@ -177,9 +126,7 @@ export default {
       } else {
         this.transitionName = "fade"
       }
-      $(`.nav-list li[name=${to.name}]`).addClass('current').siblings().removeClass('current')
-      let flag = $('body').hasClass('menu-is-open')
-      flag && this.toggle()
+      $(`#topnav li[name=${to.name}]`).addClass('current').siblings().removeClass('current')
     }
   },
   computed: {
@@ -214,220 +161,6 @@ export default {
   opacity: 0
 }
 
-.menu-is-open #menu-nav-wrap {
-  transform: translateX(0) !important;
-  visibility: visible !important;
-  -webkit-overflow-scrolling: touch !important;
-}
-
-.main {
-  height: 100%;
-  // nav
-  header {
-    width: 100%;
-    height: auto;
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 19951212;
-    .header-logo {
-      position: absolute;
-      right: 26px;
-      top: 30px;
-      transition: all 1s ease-in-out;
-      a {
-        display: block;
-        margin: 0;
-        padding: 0;
-        outline: 0;
-        border: none;
-        width: 60px;
-        height: 60px;
-        background: url(../../../static/images/logo.png) no-repeat center;
-        background-size: 60px 60px;
-        font: 0/0 a;
-        text-shadow: none;
-        color: transparent;
-        transition: all 0.5s ease-in-out;
-      }
-    }
-    #header-menu-trigger {
-      display: block;
-      position: fixed;
-      left: 100px;
-      top: 30px;
-      height: 42px;
-      width: 42px;
-      line-height: 42px;
-      font-family: "montserrat-regular", sans-serif;
-      font-size: 1.4rem;
-      text-transform: uppercase;
-      letter-spacing: .2rem;
-      color: rgba(255, 255, 255, 0.5);
-      transition: all 0.3s ease-in-out;
-      &.black-style {
-        color: rgba(0, 0, 0, 0.5) !important;
-        .header-menu-icon {
-          background-color: rgba(0, 0, 0, 1) !important;
-        }
-        &:hover, &:focus {
-          color: #000000 !important;
-        }
-      }
-      &:hover, &:focus {
-        color: #FFFFFF;
-      }
-      .header-menu-text {
-        display: block;
-        position: absolute;
-        top: 0;
-        right: 9px;
-        width: 75px;
-        text-align: center;
-        background-color: transparent;
-        transition: all 0.3s ease-in-out;
-      }
-      .header-menu-icon {
-        display: block;
-        height: 2px;
-        width: 24px;
-        background-color: #FFFFFF;
-        position: absolute;
-        top: 50%;
-        left: -75px;
-        margin-top: -2px;
-        &::before {
-          top: -9px;
-          content: '';
-          width: 100%;
-          height: 100%;
-          background-color: inherit;
-          position: absolute;
-          left: 0;
-        }
-        &::after {
-          bottom: -9px;
-          content: '';
-          width: 100%;
-          height: 100%;
-          background-color: inherit;
-          position: absolute;
-          left: 0;
-        }
-      }
-    }
-    #menu-nav-wrap {
-      background: #111111;
-      color: rgba(255, 255, 255, 0.25);
-      font-family: "montserrat-regular", sans-serif;
-      font-size: 1.5rem;
-      line-height: 1.5;
-      padding: 3rem 2.5rem;
-      text-align: left;
-      height: 100%;
-      width: 240px;
-      position: fixed;
-      left: 0;
-      top: 0;
-      visibility: hidden;
-      z-index: 800;
-      overflow-y: auto;
-      transform: translateX(-100%);
-      transition: all 0.4s ease-in-out;
-      .close-button {
-        display: block;
-        height: 30px;
-        width: 30px;
-        border-radius: 3px;
-        background-color: rgba(0, 0, 0, 0.3);
-        position: absolute;
-        top: 36px;
-        right: 30px;
-        font: 0/0 a;
-        text-shadow: none;
-        color: transparent;
-      }
-      a {
-        color: rgba(255, 255, 255, 0.5);
-        transition: all 0.3s ease-in-out;
-        
-        &:visited {
-          color: rgba(255, 255, 255, 0.5);
-          transition: all 0.3s ease-in-out;
-        }
-        &:focus {
-          color: white;
-        }
-        &:active {
-          color: white;
-          outline: 0;
-        }
-        a:hover {
-          outline: 0
-        }
-        span::before {
-          transform: rotate(-45deg);
-          content: "";
-          display: block;
-          height: 2px;
-          width: 12px;
-          background-color: #fff;
-          position: absolute;
-          top: 50%;
-          left: 9px;
-          margin-top: -1px;
-        }
-        span::after {
-          transform: rotate(45deg);
-          content: "";
-          display: block;
-          height: 2px;
-          width: 12px;
-          background-color: #fff;
-          position: absolute;
-          top: 50%;
-          left: 9px;
-          margin-top: -1px;
-        }
-      }
-      h3 {
-        color: white;
-        font-family: "montserrat-regular", sans-serif;
-        font-size: 1.3rem;
-        line-height: 1;
-        margin-bottom: 1.5rem;
-        font-style: normal;
-        text-rendering: optimizeLegibility;
-      }
-      .nav-list {
-        margin: 1.5rem 0;
-        padding: 0 0 1.8rem 0;
-        list-style: none;
-        line-height: 3.6rem;
-        li {
-          padding-left: 0;
-          font-size: 1rem;
-          border-bottom: 1px dotted rgba(255, 255, 255, 0.03);
-          display: list-item;
-          &:first-child {
-            border-top: 1px dotted rgba(255, 255, 255, 0.03);
-          }
-          &.current {
-            & > a {
-              color: orange;
-              text-decoration: underline;
-            }
-          }
-          a {
-            color: rgba(255, 255, 255, 0.25);
-            display: block;
-          }
-        }
-      }
-    }
-  }
-}
-
 // pace
 .pace {
   pointer-events: none;
@@ -454,7 +187,7 @@ export default {
 #audio_btn {
   position: fixed;
   right: 20px;
-  top: 30px;
+  top: 12px;
   z-index: 200;
   display: none;
   width: 30px;
@@ -466,7 +199,7 @@ export default {
   position: fixed;
   right: 20px;
   float: right;
-  top: 30px;
+  top: 12px;
   width: 30px;
   height: 30px;
   background-image: url("../../../static/images/music.gif");
@@ -479,7 +212,7 @@ export default {
   position: fixed;
   right: 20px;
   float: right;
-  top: 30px;
+  top: 12px;
   width: 30px;
   height: 30px;
   background-size: 100% 100%;

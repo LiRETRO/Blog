@@ -1,0 +1,187 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+a {
+  transition: color .3s ease-in-out;
+  text-decoration: none;
+  color: #555;
+  &:hover {
+    text-decoration: none;
+    color: #ffffff;
+  }
+}
+ul, li {
+  list-style: none;
+}
+body {
+    font: 15px "Microsoft YaHei", Arial, Helvetica, sans-serif;
+    color: #555;
+    background-color: #f6f6f6;
+    line-height: 1.5;
+}
+  
+  // @media (min-width: 992px) {
+  //   body {
+  //     transition: all .3s ease-in-out;
+  //     padding-top: 0;
+  //     padding-left: 17rem;
+  //   }
+  
+  //   .body-full-set {
+  //     padding-left: 4.5rem;
+  //   }
+  // }
+  
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Saira Extra Condensed', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #343a40;
+    line-height: unset;
+  }
+  
+  .lowercase {
+    text-transform: lowercase;
+  }
+  
+  p.lead {
+    font-size: 1.15rem;
+    font-weight: 400;
+  }
+  
+  .subheading {
+    text-transform: uppercase;
+    font-weight: 500;
+    font-family: 'Saira Extra Condensed', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    font-size: 1.5rem;
+  }
+  
+  .dev-icons {
+    font-size: 3rem;
+  }
+  
+  .dev-icons .list-inline-item i:hover {
+    color: #BD5D38;
+  }
+
+  .input {
+    position: absolute;
+    top: 15px;
+    right: 0;
+    border: none;
+    outline: none;
+    width: 98%;
+    height: 30px;
+    line-height: 30px;
+    z-index: 10;
+    font-size: 16px;
+    color: #333;
+    padding-left: 5px;
+  }
+
+  .search_ico {
+    
+    z-index: 90;
+  }
+
+  .search_ico, .search_btn {
+    width: 60px;
+    height: 60px;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0;
+    margin: 0;
+    line-height: 60px;
+    cursor: pointer;
+  }
+
+  #app {
+    header {
+      position: fixed;
+      top: 0;
+      z-index: 99999;
+      width: 100%;
+      height: 51px;
+      background: rgba(255, 255, 255, 1);
+      &::before {
+        content: "";
+        background: #000 linear-gradient(to left, #4cd964, #5ac8fa, #007aff, #34aadc, #5856d6, #ff2d55);
+        height: 3px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+      }
+      .menu {
+        height: 51px;
+        line-height: 50px;
+        width: 100%;
+        background-color: #000;
+        .nav {
+          height: 50px;
+          width: 1140px;
+          margin: 0 auto;
+          display: block;
+          .logo {
+            float: left;
+            margin-right: 80px;
+            font-size: 26px;
+            & > a {
+              color: #00A7EB;
+            }
+          }
+          & > li {
+            position: relative;
+            float: left;
+            &.current a, &.current h3 {
+              color: #00A7EB;
+              &:hover {
+                color: #00A7EB;
+              }
+            }
+            a {
+              color: #bdbdbd;
+              padding: 0 20px;
+              display: inline-block;
+              transition: color .3s ease-in-out;
+              &:hover {
+                color: #ffffff;
+                text-decoration: none;
+              }
+              h3 {
+                color: #bdbdbd;
+                transition: color .3s ease-in-out;
+                font-size: 1.2rem;
+                &:hover {
+                  color: white;
+                }  
+              }
+            }
+          }
+          .search_bar {
+            position: relative;
+            margin-top: 10px;
+            width: 0%;
+            min-width: 60px;
+            height: 60px;
+            float: right;
+            overflow: hidden;
+            transition: width 0.3s;
+          }
+        }
+      }
+    }
+    .container-fluid { 
+      width: 1140px;
+      margin: 70px auto 0;
+      overflow: hidden;
+    }
+  }

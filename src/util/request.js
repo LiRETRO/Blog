@@ -2,7 +2,7 @@ import axios from 'axios'
 import config from './config'
 
 axios.interceptors.request.use(function (request) {
-  request.baseURL = config.serviceIp
+  request.baseURL = config.serviceIp + "blogserver"
   // Successed
   request.transformRequest = function (data) {
     for (let key in request.headers) {
