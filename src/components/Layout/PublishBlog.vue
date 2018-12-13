@@ -27,8 +27,6 @@ export default {
             this.editor.create()
         },
         publishBlog (event) {
-            console.log(event)
-            console.log(this.editor.txt.html())
             let title = this.$refs.title.value
             let content = this.editor.txt.html()
             if (title === '') {
@@ -61,6 +59,9 @@ export default {
         flex-direction: column;
         background: url(../../../static/images/publishBlogBg.jpg) no-repeat;
         background-size: 100% 100%;
+        position: absolute;
+        left: 0;
+        top: 51px;
         .title-container {
             width: 70%;
             height: auto;

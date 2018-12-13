@@ -11,7 +11,7 @@ import 'jquery.easing'
 // 瀑布流
 import '../node_modules/isotope-layout/dist/isotope.pkgd.min'
 // pace
-import '../static/js/pace.min.js'
+// import '../static/js/pace.min.js'
 // 时间线
 import '../static/js/jquery.roadmap'
 import '../static/css/jquery.roadmap.min.css'

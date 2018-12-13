@@ -5,15 +5,16 @@
 					<h2>{{ title }}</h2>
 					<div class="blogs" v-for="(item) in data" :key="item.blogId">
 						<figure>
-							<router-link :to="'/detail/' + item.blogId" :title="item.blogTitle">
+							<router-link :to="`/detail/${item.blogId}`" :title="item.blogTitle">
 								<img src="../../static/images/head.png" :alt="item.blogTitle"/>
 							</router-link>
 						</figure>
 						<ul>
 							<h3>
-								<router-link :to="'/detail/' + item.blogId" :title="item.blogTitle">{{ item.blogTitle }}</router-link>
+								<router-link :to="`/detail/${item.blogId}`" :title="item.blogTitle" v-if="item.blogTitle.length > 28">{{ item.blogTitle.substring(0, 28) }}</router-link>
+								<router-link :to="`/detail/${item.blogId}`" :title="item.blogTitle" v-else>{{ item.blogTitle }}</router-link>
 							</h3>
-							<p class="content" v-if="item.blogContent.length > 120" v-html="item.blogContent.substring(0, 120)"></p>
+							<p class="content" v-if="item.blogContent.length > 300" v-html="item.blogContent.substring(0, 300) + ' ......'"></p>
 							<p class="content" v-else v-html="item.blogContent"></p>
 							<p class="author">
 								<span class="blog_time iconfont icon-publishtime">{{ new Date(item.blogPublishDate).Format('yyyy-MM-dd hh:mm') }}</span>
@@ -24,14 +25,14 @@
           <ol class="page-navigator">
             <span style="float: left;">【已显示{{ data.length !== 0 ? (pageNum - 1) * pageSizeData + 1 + '至' + (pageNum === Math.ceil(total / pageSizeData) ? total : pageNum * pageSizeData) + '项结果' : '0至0项结果' }}】共{{ Math.ceil(total / pageSizeData) }}页</span>
             <span style="float: right;">
-            <li class="previous" >
-              <a href=""><i class="iconfont icon-jiantou_shangyiye" />上一页</a>
-            </li>
-            <article ref="pages" style="display: inline-block;"></article>
-            <li class="next" >
-              <a href="">后一页<i class="iconfont icon-jiantou_xiayiye"/></a>
-            </li>
-            <input  placeholder="前往" class="jumpPage"/>
+              <li class="previous" >
+                <a href=""><i class="iconfont icon-jiantou_shangyiye"/>上一页</a>
+              </li>
+              <article ref="pages" style="display: inline-block;"></article>
+              <li class="next" >
+                <a href="">后一页<i class="iconfont icon-jiantou_xiayiye"/></a>
+              </li>
+              <input  placeholder="前往" class="jumpPage"/>
             </span>
           </ol>
 				</div>
@@ -244,6 +245,7 @@ export default {
         .blogs {
           user-select: none;
           padding: 30px 0;
+          margin: 1rem 0;
           position: relative;
           border-bottom: #BFAB86 1px solid;
           overflow: hidden;
@@ -279,6 +281,7 @@ export default {
             float: right;
             line-height: 22px;
             width: 75%;
+            padding: 0 30px;
             color: #777;
             h3 {
               font-size: 1.5rem;
@@ -289,7 +292,8 @@ export default {
             p.content {
               word-break: break-all;
               text-align: left;
-              font-size: 0.96rem;
+              font-size: 1rem;
+              margin: 1rem 0;
               height: 102px;
             }
             p.author {

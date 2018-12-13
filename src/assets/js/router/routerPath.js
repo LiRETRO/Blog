@@ -7,9 +7,8 @@ const about = () => import ('@/views/about.vue')
 const blog = () => import ('@/views/blog/blog.vue')
 const blogDetail = () => import ('@/views/blog/blogDetail.vue')
 const picture = () => import ('@/views/picture.vue')
-const skills = () => import ('@/views/skills.vue')
-const interests = () => import ('@/views/interests.vue')
-const awards = () => import ('@/views/awards.vue')
+const login = () => import ('@/views/login.vue')
+const register = () => import ('@/views/register.vue')
 
 export default [
   {
@@ -61,27 +60,19 @@ export default [
         }
       },
       {
-        path: '/skills',
-        name: 'skills',
-        component: skills,
+        path: '/login',
+        name: 'login',
+        component: login,
         meta: {
-          title: 'skills'
+          title: '登陆'
         }
       },
       {
-        path: '/interests',
-        name: 'interests',
-        component: interests,
+        path: '/register',
+        name: 'register',
+        component: register,
         meta: {
-          title: 'interests'
-        }
-      },
-      {
-        path: '/awards',
-        name: 'awards',
-        component: awards,
-        meta: {
-          title: 'awards'
+          title: '注册'
         }
       },
       {

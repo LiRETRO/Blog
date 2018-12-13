@@ -3,12 +3,15 @@
     <header> 
         <div class="menu">
           <nav class="nav" id="topnav">
-            <h1 class="logo"><router-link id="topnav_current" class="smoothscroll" to="/" replace>LiRETRO</router-link></h1>
-            <li name="blog"><router-link class="smoothscroll" to="/blog" replace><h3>博客</h3></router-link></li>
-            <li name="picture"><router-link class="smoothscroll" to="/picture" replace><h3>展示</h3></router-link></li>
+            <h1 class="logo">
+              <span class="nav_head"><img src="../../../static/images/head.png" class="nav_head_pic"></span>
+              <router-link id="topnav_current" to="/" replace >LiRETRO</router-link>
+            </h1>
+            <li name="blog"><router-link to="/blog" replace><h3>博客</h3></router-link></li>
+            <li name="picture"><router-link to="/picture" replace><h3>展示</h3></router-link></li>
             <li style="float: right;" class="">
-                <span class="avatar" style="margin: 0px auto 2px;width: auto;">
-                    <span><a href="/login">登录</a>/<a href="/register">注册</a></span>
+                <span class="avatar" style="display: block; width: auto;">
+                    <span style="vertical-align: middle;"><router-link to="/login" replace>登录</router-link>/<router-link to="/register" replace>注册</router-link></span>
                 </span>
             </li>
             <!--search begin-->
@@ -43,9 +46,9 @@
 export default {
   data () {
     return {
-      transitionName: 'slide-top',
+      transitionName: 'slide-right',
       menu: [
-        'about', 'blog', 'picture', 'skills', 'interests', 'awards'
+        'about', 'blog', 'picture', 'login', 'register'
       ],
       isIndex: true,
       curPageName: '',
@@ -113,6 +116,15 @@ export default {
     },
     audioAutoPlay (id) {
         var audio = document.getElementById(id);
+    },
+    removeCurrent(name) {
+      if (name !== 'Index' && name !== 'login' && name !== 'register') {
+        $(`#topnav li[name=${name}]`).addClass('current').siblings().removeClass('current')
+      }
+      if (name === 'Index' || name === 'login' || name === 'register') {
+        $('#topnav li').each(function(event) {$(this).removeClass('current')})
+      }
+     
     }
   },
   watch: {
@@ -120,13 +132,13 @@ export default {
       if (to.name !== 'blogDetail') {
         const toDepth = this.menu.findIndex(item => item === to.name)
         const fromDepth = this.menu.findIndex(item => item === from.name)
-        this.transitionName = toDepth < fromDepth ? 'slide-top' : 'slide-down'
+        this.transitionName = toDepth < fromDepth ? 'slide-left' : 'slide-right'
         this.isIndex = to.path != '/' ? false : true
         this.curPageName = this.menu[toDepth]
       } else {
         this.transitionName = "fade"
       }
-      $(`#topnav li[name=${to.name}]`).addClass('current').siblings().removeClass('current')
+      this.removeCurrent(to.name)
     }
   },
   computed: {
@@ -146,12 +158,12 @@ export default {
 .child-view {
   transition: all .3s cubic-bezier(.68, .2, .27, 1);
 }
-.slide-top-enter, .slide-down-leave-active  {
-  transform: translateY(-75px);
+.slide-left-enter, .slide-right-leave-active  {
+  transform: translateX(-75px);
   opacity: 0;
 }
-.slide-top-leave-active, .slide-down-enter  {
-  transform: translateY(75px);
+.slide-left-leave-active, .slide-right-enter  {
+  transform: translateX(75px);
   opacity: 0;
 }
 .fade-enter-active, .fade-leave-active {
@@ -162,26 +174,25 @@ export default {
 }
 
 // pace
-.pace {
-  pointer-events: none;
+// .pace {
+//   pointer-events: none;
 
-  user-select: none;
-}
+//   user-select: none;
+// }
 
-.pace-inactive {
-  display: none;
-}
+// .pace-inactive {
+//   display: none;
+// }
 
-.pace .pace-progress {
-  background: #29d;
-  position: fixed;
-  z-index: 2000;
-  top: 0;
-  right: 100%;
-  width: 100%;
-  height: 2px;
-}
-
+// .pace .pace-progress {
+//   background: #ff0000;
+//   position: fixed;
+//   z-index: 2000;
+//   top: 0;
+//   right: 100%;
+//   width: 100%;
+//   height: 2px;
+// }
 
 // 音乐播放器
 #audio_btn {
