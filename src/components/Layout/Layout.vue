@@ -34,8 +34,14 @@
         <router-view class="child-view" :v-show="!isIndex" ref="child"/>
       </transition>
     </div>
+    <footer>
+      <p>Copyright © 2015-2018 [LiRETRO] All Rights Reserved.
+        <br>
+        <a target="_blank" href="http://www.miitbeian.gov.cn">{{ record }}</a>
+      </p>
+    </footer>
     <!--音乐-->
-    <div class="video_exist off" id="audio_btn" style="display: block;z-index:999999;">
+    <div class="video_exist off" id="audio_btn" style="display: block; z-index:999999;">
       <div id="yinfu"></div>
       <audio preload="auto" id="media" src="../../../static/music/butterfly.mp3" loop="loop" volumn="0"></audio>
     </div>
@@ -43,6 +49,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
@@ -124,30 +131,45 @@ export default {
       if (name === 'Index' || name === 'login' || name === 'register') {
         $('#topnav li').each(function(event) {$(this).removeClass('current')})
       }
-     
     }
   },
-  watch: {
-    '$route' (to, from) {
-      if (to.name !== 'blogDetail') {
-        const toDepth = this.menu.findIndex(item => item === to.name)
-        const fromDepth = this.menu.findIndex(item => item === from.name)
-        this.transitionName = toDepth < fromDepth ? 'slide-left' : 'slide-right'
-        this.isIndex = to.path != '/' ? false : true
-        this.curPageName = this.menu[toDepth]
-      } else {
-        this.transitionName = "fade"
+  // 渲染该组件对应路由被confirm之前
+  beforeRouteEnter (to, from, next) {
+    const curRouteName = to.name
+    next(vm => {
+      // Callback
+      if (curRouteName !== 'Index' && curRouteName !== 'login' && curRouteName !== 'register') {
+        $(`#topnav li[name=${curRouteName}]`).addClass('current').siblings().removeClass('current')
       }
-      this.removeCurrent(to.name)
+      if (curRouteName === 'Index' || curRouteName === 'login' || curRouteName === 'register') {
+        $('#topnav li').each(function(event) {$(this).removeClass('current')})
+      }
+    })
+  },
+  beforeRouteUpdate (to, from, next) {
+    if (to.name !== 'blogDetail') {
+      const toDepth = this.menu.findIndex(item => item === to.name)
+      const fromDepth = this.menu.findIndex(item => item === from.name)
+      this.transitionName = toDepth < fromDepth ? 'slide-left' : 'slide-right'
+      this.isIndex = to.path != '/' ? false : true
+      this.curPageName = this.menu[toDepth]
+    } else {
+      this.transitionName = "fade"
     }
+    this.removeCurrent(to.name)
+    next()
   },
   computed: {
+    ...mapGetters([
+      'record'
+    ]),
     getDocumentWidth () {
       return window.innerWidth
     }
   },
   mounted () {
     this.init()
+    console.log(returnCitySN)
   }
 }
 </script>

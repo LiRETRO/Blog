@@ -14,7 +14,7 @@
     </div>
     <div class="row">
       <div class="portfolio-items isotope">
-        <div class="col-sm-6 col-md-3 col-lg-3 xdyc isotope-item">
+        <div class="col-sm-6 xdyc isotope-item">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="../../static/images/head.png" title="测试标题">
               <div class="hover-text">
@@ -23,7 +23,7 @@
               <img src="../../static/images/head.png" class="img-responsive"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 lkh isotope-item">
+        <div class="col-sm-6 lkh isotope-item">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="../../static/images/test1.jpg" title="测试标题">
               <div class="hover-text">
@@ -32,7 +32,7 @@
               <img src="../../static/images/test1.jpg" class="img-responsive"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 xdyc isotope-item">
+        <div class="col-sm-6 xdyc isotope-item">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="../../static/images/head.png" title="测试标题">
               <div class="hover-text">
@@ -41,7 +41,7 @@
               <img src="../../static/images/head.png" class="img-responsive"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 jh isotope-item">
+        <div class="col-sm-6 jh isotope-item">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="../../static/images/test2.jpg" title="测试标题">
               <div class="hover-text">
@@ -50,7 +50,7 @@
               <img src="../../static/images/test2.jpg" class="img-responsive"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 lkh isotope-item">
+        <div class="col-sm-6 lkh isotope-item">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="../../static/images/test1.jpg" title="测试标题">
               <div class="hover-text">
@@ -59,7 +59,7 @@
               <img src="../../static/images/test1.jpg" class="img-responsive"> </a> </div>
           </div>
         </div>
-        <div class="col-sm-6 col-md-3 col-lg-3 jh isotope-item">
+        <div class="col-sm-6 jh isotope-item">
           <div class="portfolio-item">
             <div class="hover-bg"> <a href="../../static/images/test2.jpg" title="测试标题">
               <div class="hover-text">
@@ -175,7 +175,11 @@ export default {
     }
   },
   mounted () {
-    this.init()
+    const self = this
+    require.ensure(['../../node_modules/isotope-layout/dist/isotope.pkgd.min'], function(require) {
+      require('../../node_modules/isotope-layout/dist/isotope.pkgd.min')
+      self.init()
+    }, 'isotope-chunk')
   }
 }
 </script>

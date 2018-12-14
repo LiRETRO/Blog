@@ -28,6 +28,8 @@ module.exports = {
   output: {
     path: config.build.assetsRoot,
     filename: '[name].js',
+    // 分片文件名称
+    chunkFilename: utils.assetsPath('js/[name].chunk.js'),
     publicPath: process.env.NODE_ENV === 'production'
       ? config.build.assetsPublicPath
       : config.dev.assetsPublicPath

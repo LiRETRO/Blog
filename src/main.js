@@ -8,16 +8,14 @@ import store from './store/manager/manager'
 import './util/request'
 // 引入jquery 及其插件
 import 'jquery.easing'
-// 瀑布流
-import '../node_modules/isotope-layout/dist/isotope.pkgd.min'
 // pace
 // import '../static/js/pace.min.js'
 // 时间线
-import '../static/js/jquery.roadmap'
-import '../static/css/jquery.roadmap.min.css'
+// import '../static/js/jquery.roadmap'
+// import '../static/css/jquery.roadmap.min.css'
 // 引入Bootstrap
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import '../node_modules/bootstrap/dist/js/bootstrap.min.js'
+// import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+// import '../node_modules/bootstrap/dist/js/bootstrap.min.js'
 // 引入resume
 import '../static/css/newStyle.less'
 // iconfont
