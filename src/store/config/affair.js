@@ -2,6 +2,7 @@ import affair from '../../util/affair'
 // 定义状态(变量)
 const state = {
   record: '湘ICP备17000235号-1',
+  loading: false,
   blogList: [],
   blogDetail: {}
 }
@@ -9,6 +10,7 @@ const state = {
 // 获取状态(变量)
 const getters = {
   record: state => state.record,
+  loading: state => state.loading,
   blogList: state => state.blogList,
   blogDetail: state => state.blogDetail
 }
@@ -27,6 +29,9 @@ const actions = {
 }
 // 只能同步操作，修改状态
 const mutations = {
+  setLoading (state, payload) {
+    state.loading = payload
+  },
   setBlogList (state, payload) {
     state.blogList = payload.list
   },

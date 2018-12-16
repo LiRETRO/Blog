@@ -2,7 +2,7 @@ import axios from 'axios'
 import config from './config'
 
 axios.interceptors.request.use(function (request) {
-  request.baseURL = config.serviceIp + "blogserver"
+  request.baseURL = config.serviceIp + 'blogserver'
   // Successed
   request.transformRequest = function (data) {
     for (let key in request.headers) {
@@ -24,6 +24,7 @@ axios.interceptors.request.use(function (request) {
 }, function (error) {
   // Failed
   console.log(error)
+  alert('request failed')
   return Promise.reject(error)
 })
 

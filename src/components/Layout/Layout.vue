@@ -5,7 +5,7 @@
           <nav class="nav" id="topnav">
             <h1 class="logo">
               <span class="nav_head"><img src="../../../static/images/head.png" class="nav_head_pic"></span>
-              <router-link id="topnav_current" to="/" replace >LiRETRO</router-link>
+              <router-link id="topnav_current" to="/index" replace >LiRETRO</router-link>
             </h1>
             <li name="blog"><router-link to="/blog" replace><h3>博客</h3></router-link></li>
             <li name="picture"><router-link to="/picture" replace><h3>展示</h3></router-link></li>
@@ -31,11 +31,13 @@
 	  </header>
     <div class="container-fluid p-0">
       <transition :name="transitionName" mode="out-in" >
-        <router-view class="child-view" :v-show="!isIndex" ref="child"/>
+        <keep-alive>
+          <router-view class="child-view" :v-show="!isIndex" ref="child" @toggleLoading="toggleLoading"/>
+        </keep-alive>
       </transition>
     </div>
     <footer>
-      <p>Copyright © 2015-2018 [LiRETRO] All Rights Reserved.
+      <p>Copyright © 2018 [LiRETRO] All Rights Reserved.
         <br>
         <a target="_blank" href="http://www.miitbeian.gov.cn">{{ record }}</a>
       </p>
@@ -45,11 +47,13 @@
       <div id="yinfu"></div>
       <audio preload="auto" id="media" src="../../../static/music/butterfly.mp3" loop="loop" volumn="0"></audio>
     </div>
+    <loading :loadingVisible="loading"></loading>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import loading from '@/components/Loading'
 export default {
   data () {
     return {
@@ -71,49 +75,49 @@ export default {
   },
   methods: {
     init () {
-      let _this = this
-      // 动态给nav button添加事件
-      // 如果宽度 < 992px，则为移动端，添加data-toggle="collapse" properties
-      // 如果宽度 >= 992px，则为pc端，点击隐藏导航栏
-      let width = this.getDocumentWidth
-      if (width >= 992) {
-        $('button.navbar-toggler').on('click', function(event) {
-          let isCollapse = $('body').hasClass('body-full-set')
-          if(isCollapse) {
-            // 展开 -> 隐藏
-            $('body').removeClass('body-full-set').find('#sideNav').removeClass('hide')
-          } else {
-            // 隐藏 -> 展开
-            $('body').addClass('body-full-set').find('#sideNav').addClass('hide')
-          }
-          if(_this.curPageName === 'picture') {
-            _this.$refs.child.filterAll.apply()
-          }
-        })
-      } else {
-        $('button.navbar-toggler').attr('data-toggle', 'collapse')
-      }
-      // 菜单栏
-      $('#header-menu-trigger').on('click', function(event) {
-        event.preventDefault()
-        event.stopPropagation()
-        _this.toggle()
-      })
-      $('a.close-button').on('click', function(event) {
-        event.preventDefault()
-        event.stopPropagation()
-        _this.toggle()
-      })
+      // let _this = this
+      // // 动态给nav button添加事件
+      // // 如果宽度 < 992px，则为移动端，添加data-toggle="collapse" properties
+      // // 如果宽度 >= 992px，则为pc端，点击隐藏导航栏
+      // let width = this.getDocumentWidth
+      // if (width >= 992) {
+      //   $('button.navbar-toggler').on('click', function(event) {
+      //     let isCollapse = $('body').hasClass('body-full-set')
+      //     if(isCollapse) {
+      //       // 展开 -> 隐藏
+      //       $('body').removeClass('body-full-set').find('#sideNav').removeClass('hide')
+      //     } else {
+      //       // 隐藏 -> 展开
+      //       $('body').addClass('body-full-set').find('#sideNav').addClass('hide')
+      //     }
+      //     if(_this.curPageName === 'picture') {
+      //       _this.$refs.child.filterAll.apply()
+      //     }
+      //   })
+      // } else {
+      //   $('button.navbar-toggler').attr('data-toggle', 'collapse')
+      // }
+      // // 菜单栏
+      // $('#header-menu-trigger').on('click', function(event) {
+      //   event.preventDefault()
+      //   event.stopPropagation()
+      //   _this.toggle()
+      // })
+      // $('a.close-button').on('click', function(event) {
+      //   event.preventDefault()
+      //   event.stopPropagation()
+      //   _this.toggle()
+      // })
       // $('ul.nav-list').delegate('li', 'click', function (event) {
       //   if (!$(this).hasClass('current')) {
       //     $(this).addClass('current').siblings().removeClass('current')
       //   }
       // })
-      $('div.container-fluid').on('click', function (event) {
-        event.stopPropagation()
-        let flag = $('body').hasClass('menu-is-open')
-        flag && _this.toggle()
-      })
+      // $('div.container-fluid').on('click', function (event) {
+      //   event.stopPropagation()
+      //   let flag = $('body').hasClass('menu-is-open')
+      //   flag && _this.toggle()
+      // })
       // 音乐按钮
       this.audioAutoPlay('media');
       $("#audio_btn").bind('click', function() {
@@ -131,6 +135,9 @@ export default {
       if (name === 'Index' || name === 'login' || name === 'register') {
         $('#topnav li').each(function(event) {$(this).removeClass('current')})
       }
+    },
+    toggleLoading (flag) {
+      this.$store.commit('setLoading', flag)
     }
   },
   // 渲染该组件对应路由被confirm之前
@@ -159,9 +166,13 @@ export default {
     this.removeCurrent(to.name)
     next()
   },
+  components: {
+    loading
+  },
   computed: {
     ...mapGetters([
-      'record'
+      'record',
+      'loading'
     ]),
     getDocumentWidth () {
       return window.innerWidth

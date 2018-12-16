@@ -229,6 +229,27 @@ export default {
           _this.pageNum = pageNum
         })
       })
+    },
+    initBlogsEffect () {
+      $('div.blogs').each(function(event) {
+        $(this).addClass('left-fade-in')
+      })
+      this.blogEffect()
+    },
+    blogEffect () {
+      let _this = this
+      $('ul div.left-fade-in').not('.enter').each(function() {
+        let offsetTop = document.body.scrollTop || window.pageYOffset
+        let windowHeight = _this.windowSize
+        let elemOffsetTop = this.offsetTop
+        let elemInnerHeight = this.offsetHeight
+        if(elemOffsetTop + elemInnerHeight < offsetTop + windowHeight){
+          $(this).addClass('enter')
+        }
+      })
+    },
+    monitorScroll () {
+
     }
   },
   computed: {
@@ -250,6 +271,9 @@ export default {
         li_next: '<li class="paginate_button next disabled" id="{0}_next"></li>',
         li_next_a: '<a href="javascript:void(0)" class="next"  aria-controls="{0}" data-dt-idx="{1}" tabindex="{1}">下一页</a>'
       }
+    },
+    windowSize () {
+      return window.innerHeight;
     }
   },
   watch: {
@@ -258,6 +282,11 @@ export default {
     },
     pageNum (newVal) {
       this.drawPage()
+    },
+    data () {
+      this.$nextTick(function() {
+        this.initBlogsEffect()
+      })
     }
   },
   mounted () {
@@ -307,6 +336,14 @@ export default {
         background: #FFF;
         box-shadow: 0 2px 5px 0 rgba(146, 146, 146, .1);
         transition: all 0.6s ease;
+        &.left-fade-in {
+          opacity: 0;
+          transform: translateX(-40%);
+          &.enter {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
         li {
           overflow: hidden;
           border-bottom: #eee 1px dashed;

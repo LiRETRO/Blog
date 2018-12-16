@@ -1,5 +1,7 @@
 <template>
-		<blog-content title="技术分享" :data="blogDataList" :pageSize="query.page.pageSize" :totalRecord="totalNum" @onPageChange="onPageChange"></blog-content>
+    <div>
+		  <blog-content title="技术分享" :data="blogDataList" :pageSize="query.page.pageSize" :totalRecord="totalNum" @onPageChange="onPageChange"></blog-content>
+    </div>
 </template>
 
 <script>
@@ -29,13 +31,18 @@ export default {
       'getLocalIp'
     ]),
     init () {
-				this.fetchList(this.query)
+			this.fetchList(this.query)
     },
     fetchList (query) {
       let _this = this
+      this.$emit('toggleLoading', true)
       getBlogList(query).then(data => {
         _this.blogDataList = data.resultObj
         _this.totalNum = data.page.totalNum
+        _this.$emit('toggleLoading', false)
+      }).catch(error => {
+        _this.$emit('toggleLoading', false)
+        alert('加载失败')
       })
     },
     onPageChange (pageNum) {
@@ -46,8 +53,9 @@ export default {
 	components: {
 		'blog-content': blogContent
 	},
-  created () {
+  mounted () {
     this.init()
   }
 }
 </script>
+

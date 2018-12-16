@@ -1,5 +1,6 @@
 import { isAbsolute } from 'path'
 
+const Hello = () => import ('@/components/HelloWorld.vue')
 const Layout = () => import ('@/components/Layout/Layout.vue')
 const PublishBlog = () => import ('@/components/Layout/PublishBlog.vue')
 const pic = () => import ('@/views/pic.vue')
@@ -13,6 +14,15 @@ const register = () => import ('@/views/register.vue')
 export default [
   {
     path: '/',
+    name: 'Hello',
+    component: Hello,
+    redirect: '/index',
+    meta: {
+      title: '欢迎'
+    }
+  },
+  {
+    path: '/index',
     name: 'Index',
     component: Layout,
     meta: {
@@ -20,7 +30,7 @@ export default [
     },
     children: [
       {
-        path: '/',
+        path: '/index',
         name: 'Index',
         component: pic,
         meta: {
