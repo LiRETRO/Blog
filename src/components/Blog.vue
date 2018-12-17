@@ -235,6 +235,7 @@ export default {
         $(this).addClass('left-fade-in')
       })
       this.blogEffect()
+      // window.addEventListener('scroll', this.monitorScroll)
     },
     blogEffect () {
       let _this = this
@@ -243,13 +244,14 @@ export default {
         let windowHeight = _this.windowSize
         let elemOffsetTop = this.offsetTop
         let elemInnerHeight = this.offsetHeight
+        $(this).addClass('enter')
         if(elemOffsetTop + elemInnerHeight < offsetTop + windowHeight){
-          $(this).addClass('enter')
+          
         }
       })
     },
-    monitorScroll () {
-
+    monitorScroll (event) {
+      this.blogEffect()
     }
   },
   computed: {
@@ -342,6 +344,36 @@ export default {
           &.enter {
             opacity: 1;
             transform: translateX(0);
+          }
+          &:nth-child(1n) {
+            transition-delay: 0.07s;
+          }
+          &:nth-child(2n) {
+            transition-delay: 0.13s;
+          }
+          &:nth-child(3n) {
+            transition-delay: 0.19s;
+          }
+          &:nth-child(4n) {
+            transition-delay: 0.25s;
+          }
+          &:nth-child(5n) {
+            transition-delay: 0.31s;
+          }
+          &:nth-child(6n) {
+            transition-delay: 0.37s;
+          }
+          &:nth-child(7n) {
+            transition-delay: 0.43s;
+          }
+          &:nth-child(8n) {
+            transition-delay: 0.49s;
+          }
+          &:nth-child(9n) {
+            transition-delay: 0.55s;
+          }
+          &:nth-child(10n) {
+            transition-delay: 0.61s;
           }
         }
         li {

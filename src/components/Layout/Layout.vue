@@ -45,7 +45,7 @@
     <!--音乐-->
     <div class="video_exist off" id="audio_btn" style="display: block; z-index:999999;">
       <div id="yinfu"></div>
-      <audio preload="auto" id="media" src="../../../static/music/butterfly.mp3" loop="loop" volumn="0"></audio>
+      <audio preload="none" id="media" src="../../../static/music/butterfly.mp3" loop="loop"></audio>
     </div>
     <loading :loadingVisible="loading"></loading>
   </div>
@@ -261,9 +261,6 @@ export default {
   height: 30px;
   background-size: 100% 100%;
   background-image: url("../../../static/images/music_off.png");
-  -webkit-animation: rotating 1.2s linear infinite;
-  -moz-animation: rotating 1.2s linear infinite;
-  -o-animation: rotating 1.2s linear infinite;
   animation: rotating 1.2s linear infinite;
 }
 

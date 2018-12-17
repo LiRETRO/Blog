@@ -54,14 +54,6 @@ export default [
         }
       },
       {
-        path: '/detail/:id',
-        name: 'blogDetail',
-        component: blogDetail,
-        meta: {
-          title: '正文'
-        }
-      },
-      {
         path: '/picture',
         name: 'picture',
         component: picture,
@@ -94,5 +86,13 @@ export default [
         }
       },
     ]
+  },
+  {
+    path: '/detail/:id',
+    name: 'blogDetail',
+    component: blogDetail,
+    meta: {
+      title: '正文'
+    }
   }
 ]
