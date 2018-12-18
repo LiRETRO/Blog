@@ -182,6 +182,7 @@ export default {
           $(pageContainer).append(li_page);
         }
       }
+      this.initCurrentPage()
       this.bindEvent()
     },
     bindPermanentEvent () {
@@ -225,9 +226,19 @@ export default {
       $(this.$refs['pages']).find("li a").not(".disabled").not(".next").not(".previous").each(function (index, item) {
         $(item).click(function () {
           var pageNum = parseInt($(this).text())
+          if (_this.pageNum === pageNum) {
+            return false
+          }
           _this.$emit('onPageChange', pageNum)
           _this.pageNum = pageNum
         })
+      })
+    },
+    initCurrentPage () {
+      const _this = this
+      $('li.paginate_button a').each(function (index, item) {
+        var pageNum = parseInt($(this).text())
+        _this.pageNum === pageNum && $(this).parent('li.paginate_button').addClass('current')
       })
     },
     initBlogsEffect () {
@@ -235,7 +246,7 @@ export default {
         $(this).addClass('left-fade-in')
       })
       this.blogEffect()
-      // window.addEventListener('scroll', this.monitorScroll)
+      window.addEventListener('scroll', this.monitorScroll)
     },
     blogEffect () {
       let _this = this
@@ -349,31 +360,31 @@ export default {
             transition-delay: 0.07s;
           }
           &:nth-child(2n) {
-            transition-delay: 0.13s;
+            transition-delay: 0.20s;
           }
           &:nth-child(3n) {
-            transition-delay: 0.19s;
+            transition-delay: 0.33s;
           }
           &:nth-child(4n) {
-            transition-delay: 0.25s;
+            transition-delay: 0.46s;
           }
           &:nth-child(5n) {
-            transition-delay: 0.31s;
+            transition-delay: 0.59s;
           }
           &:nth-child(6n) {
-            transition-delay: 0.37s;
+            transition-delay: 0.72s;
           }
           &:nth-child(7n) {
-            transition-delay: 0.43s;
+            transition-delay: 0.85s;
           }
           &:nth-child(8n) {
-            transition-delay: 0.49s;
+            transition-delay: 0.98s;
           }
           &:nth-child(9n) {
-            transition-delay: 0.55s;
+            transition-delay: 1.11s;
           }
           &:nth-child(10n) {
-            transition-delay: 0.61s;
+            transition-delay: 1.24s;
           }
         }
         li {
@@ -464,7 +475,7 @@ export default {
           &.current {
             a {
               text-decoration: underline;
-              color: #333;
+              color: #337ab7;
               cursor: default;
             }
           }

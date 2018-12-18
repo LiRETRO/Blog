@@ -180,7 +180,6 @@ export default {
   },
   mounted () {
     this.init()
-    console.log(returnCitySN)
   }
 }
 </script>
