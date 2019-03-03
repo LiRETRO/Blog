@@ -24,7 +24,6 @@ axios.interceptors.request.use(function (request) {
 }, function (error) {
   // Failed
   console.log(error)
-  alert('request failed')
   return Promise.reject(error)
 })
 
