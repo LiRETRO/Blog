@@ -41,7 +41,7 @@ export default {
                 if (data.resultCode === 'success') {
                     alert(data.resultMessage)
                 }
-            })
+            });
         }
     },
     mounted () {
