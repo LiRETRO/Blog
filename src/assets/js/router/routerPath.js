@@ -9,7 +9,7 @@ const blog = () => import ('@/views/blog/blog.vue')
 const blogDetail = () => import ('@/views/blog/blogDetail.vue')
 const picture = () => import ('@/views/picture.vue')
 const login = () => import ('@/views/userAction/login.vue')
-const register = () => import ('@/views/register.vue')
+const register = () => import ('@/views/userAction/register.vue')
 
 export default [
   {
