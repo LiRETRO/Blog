@@ -3,7 +3,7 @@
     <div class="middle_frame">
       <form method="post">
         <div class="user-container">
-          <h4 class="Title pb-24">
+          <h4 class="Title pb-24 text-center">
             <span>登陆</span>
           </h4>
           <div class="mt-8 pb-8">

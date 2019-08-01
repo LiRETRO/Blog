@@ -3,7 +3,7 @@
     <div class="middle_frame">
       <form method="post" action="http://localhost:8000/api/user/register" enctype="multipart/form-data">
         <div class="user-container">
-          <h4 class="Title pb-24">
+          <h4 class="Title pb-24 text-center">
             <span>立即注册</span>
           </h4>
           <div class="mt-8 pb-8">
@@ -13,7 +13,7 @@
                   <label for="ucp_login_email_field">
                     <span>用户名</span>
                   </label>
-                  <input  class="TextField__element form-control"
+                  <input class="TextField__element form-control"
                     type="text"
                     name="username"
                     id="userName"

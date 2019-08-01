@@ -45,7 +45,7 @@
     <!--音乐-->
     <div class="video_exist off" id="audio_btn" style="display: block; z-index:999999;">
       <div id="yinfu"></div>
-      <audio preload="none" id="media" src="../../../static/music/butterfly.mp3" loop="loop"></audio>
+      <audio preload="none" id="media" src="/static/music/astronaut.mp3" loop="loop"></audio>
     </div>
     <loading :loadingVisible="loading"></loading>
   </div>
