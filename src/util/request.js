@@ -30,7 +30,7 @@ axios.interceptors.request.use(function (request) {
 axios.interceptors.response.use(function (response) {
   // Successed
   console.log(response)
-  return response.data
+  return response.data.code == 200 ? response.data : Promise.reject(response.data);
 }, function (error) {
   // Failed
   console.log(error)

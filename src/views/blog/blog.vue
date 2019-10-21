@@ -37,12 +37,12 @@ export default {
       let _this = this
       this.$emit('toggleLoading', true)
       getBlogList(query).then(data => {
-        _this.blogDataList = data.resultObj
+        _this.blogDataList = data.data
         _this.totalNum = data.page.totalNum
         _this.$emit('toggleLoading', false)
       }).catch(error => {
         _this.$emit('toggleLoading', false)
-        alert('加载失败')
+        alert(error.message)
       })
     },
     onPageChange (pageNum) {
