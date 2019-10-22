@@ -226,7 +226,7 @@ export default {
     init () {
       let _this = this
       getBlogDetail(this.blogId).then(function (data) {
-        _this.blogDetail = data.resultObj
+        _this.blogDetail = data.data
       })
     }
   },
