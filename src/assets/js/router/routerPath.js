@@ -2,8 +2,8 @@ import { isAbsolute } from 'path'
 
 const Hello = () => import ('@/components/HelloWorld.vue')
 const Layout = () => import ('@/components/Layout/Layout.vue')
+const Home = () => import ('@/components/Home.vue')
 const PublishBlog = () => import ('@/components/Layout/PublishBlog.vue')
-const pic = () => import ('@/views/pic.vue')
 const about = () => import ('@/views/about.vue')
 const blog = () => import ('@/views/blog/blog.vue')
 const blogDetail = () => import ('@/views/blog/blogDetail.vue')
@@ -16,23 +16,23 @@ export default [
     path: '/',
     name: 'Hello',
     component: Hello,
-    redirect: '/index',
+    redirect: '/home',
     meta: {
       title: '欢迎'
     }
   },
   {
-    path: '/index',
-    name: 'Index',
+    path: '/home',
+    name: 'home',
     component: Layout,
     meta: {
       title: '主页'
     },
     children: [
       {
-        path: '/index',
-        name: 'Index',
-        component: pic,
+        path: '/home',
+        name: 'home',
+        component: Home,
         meta: {
           title: '主页'
         }

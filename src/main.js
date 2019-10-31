@@ -9,17 +9,16 @@ import './util/request'
 // 引入jquery 及其插件
 import 'jquery.easing'
 // pace
-// import '../static/js/pace.min.js'
-// 时间线
-// import '../static/js/jquery.roadmap'
-// import '../static/css/jquery.roadmap.min.css'
+import '../static/js/pace.min.js'
 // 引入Bootstrap
-// import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-// import '../node_modules/bootstrap/dist/js/bootstrap.min.js'
-// 引入resume
-import '../static/css/newStyle.less'
-// iconfont
-import '../static/css/iconfont.css'
+import '../static/css/bootstrap.min.css'
+import '../static/js/bootstrap.min.js'
+// 引用base css
+import '../static/css/blog.less'
+import '../static/css/syntax.css'
+// 引用base js
+import '../static/js/hux-blog.js'
+import '../static/js/jquery.tagcloud.js'
 // 插件
 import './util/date.js'
 // 公共组件

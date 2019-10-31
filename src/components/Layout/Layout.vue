@@ -1,35 +1,49 @@
 <template>
-  <div class="main" id="page-top">
-    <header> 
-        <div class="menu">
-          <nav class="nav" id="topnav">
-            <h1 class="logo">
-              <span class="nav_head"><img src="../../../static/images/head.png" class="nav_head_pic"></span>
-              <router-link id="topnav_current" to="/index" replace >LiRETRO</router-link>
-            </h1>
-            <li name="blog"><router-link to="/blog" replace><h3>博客</h3></router-link></li>
-            <li name="picture"><router-link to="/picture" replace><h3>展示</h3></router-link></li>
-            <li style="float: right;" class="">
-                <span class="avatar" style="display: block; width: auto;">
-                    <span style="vertical-align: middle;"><router-link to="/login" replace>登录</router-link>/<router-link to="/register" replace>注册</router-link></span>
-                </span>
-            </li>
-            <!--search begin-->
-            <div id="search_bar" class="search_bar" style="display:none;">
-                <form id="searchform" action="/nav/search" method="post" name="searchform">
-                    <input class="input" placeholder="想搜点什么呢..." type="text" name="keyboard" id="keyboard">
-                    <input type="hidden" name="show" value="title">
-                    <input type="hidden" name="tempid" value="1">
-                    <input type="hidden" name="tbname" value="news">
-                    <input type="hidden" name="Submit" value="搜索">
-                    <span class="search_ico"></span>
-                </form>
-            </div>
-            <!--search end-->
-          </nav>
+  <div class="layout-root">
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+          <router-link class="navbar-brand" to="/">{{ site.name }}</router-link>
+        </div>
+        <div id="huxblog_navbar">
+          <div class="navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li>
+                <router-link replace to="/">Home</router-link>
+              </li>
+              <li>
+                <router-link replace to="/about/">About</router-link>
+              </li>
+              <li>
+                <router-link replace to="/archive/">Archive</router-link>
+              </li>
+              <li>
+                <router-link replace to="/portfolio/">Portfolio</router-link>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
-	  </header>
-    <div class="container-fluid p-0">
+    </nav>
+    <header class="intro-header" style="background-image: url('/static/images/header_bg.png')">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <div class="site-heading">
+              <h1>LiRETRO's Blog</h1>
+              <span class="subheading">Do what i wanna do</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <div class="container">
       <transition :name="transitionName" mode="out-in" >
         <keep-alive>
           <router-view class="child-view" :v-show="!isIndex" ref="child" @toggleLoading="toggleLoading"/>
@@ -37,17 +51,65 @@
       </transition>
     </div>
     <footer>
-      <p>Copyright © 2018 [LiRETRO] All Rights Reserved.
-        <br>
-        <a target="_blank" href="http://www.miitbeian.gov.cn">{{ record }}</a>
-      </p>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <ul class="list-inline text-center">
+                <li>
+                    <a target="_blank" :href="`https://www.twitter.com/${site.twitterName}`">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                  <a target="_blank" :href="`https://www.zhihu.com/people/${ site.zhihuName }`">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-circle fa-stack-2x"></i>
+                      <i class="fa  fa-stack-1x fa-inverse">知</i>
+                    </span>
+                  </a>
+                </li>
+                <!-- <li>
+                    <a target="_blank" href="http://weibo.com/{{ site.weibo_username }}">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li> -->
+                <li>
+                    <a target="_blank" :href="`https://www.facebook.com/${ site.facebookName }`">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a target="_blank" :href="`https://github.com/${ site.githubName }`">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+            </ul>
+            <p class="copyright text-muted">
+              Copyright &copy; {{ site.name }} {{ site.date }} All Rights Reserved.
+              <br>
+              Theme by <a href="http://huangxuan.me">Hux</a> |
+              <iframe
+                  style="margin-left: 2px; margin-bottom:-5px;"
+                  frameborder="0" scrolling="0" width="91px" height="20px"
+                  src="https://ghbtns.com/github-btn.html?user=huxpro&repo=huxpro.github.io&type=star&count=true" >
+              </iframe>
+            </p>
+          </div>
+        </div>
+      </div>
     </footer>
-    <!--音乐-->
-    <div class="video_exist off" id="audio_btn" style="display: block; z-index:999999;">
-      <div id="yinfu"></div>
-      <audio preload="none" id="media" src="/static/music/astronaut.mp3" loop="loop"></audio>
-    </div>
-    <loading :loadingVisible="loading"></loading>
   </div>
 </template>
 
@@ -75,58 +137,46 @@ export default {
   },
   methods: {
     init () {
-      // let _this = this
-      // // 动态给nav button添加事件
-      // // 如果宽度 < 992px，则为移动端，添加data-toggle="collapse" properties
-      // // 如果宽度 >= 992px，则为pc端，点击隐藏导航栏
-      // let width = this.getDocumentWidth
-      // if (width >= 992) {
-      //   $('button.navbar-toggler').on('click', function(event) {
-      //     let isCollapse = $('body').hasClass('body-full-set')
-      //     if(isCollapse) {
-      //       // 展开 -> 隐藏
-      //       $('body').removeClass('body-full-set').find('#sideNav').removeClass('hide')
-      //     } else {
-      //       // 隐藏 -> 展开
-      //       $('body').addClass('body-full-set').find('#sideNav').addClass('hide')
-      //     }
-      //     if(_this.curPageName === 'picture') {
-      //       _this.$refs.child.filterAll.apply()
-      //     }
-      //   })
-      // } else {
-      //   $('button.navbar-toggler').attr('data-toggle', 'collapse')
-      // }
-      // // 菜单栏
-      // $('#header-menu-trigger').on('click', function(event) {
-      //   event.preventDefault()
-      //   event.stopPropagation()
-      //   _this.toggle()
-      // })
-      // $('a.close-button').on('click', function(event) {
-      //   event.preventDefault()
-      //   event.stopPropagation()
-      //   _this.toggle()
-      // })
-      // $('ul.nav-list').delegate('li', 'click', function (event) {
-      //   if (!$(this).hasClass('current')) {
-      //     $(this).addClass('current').siblings().removeClass('current')
-      //   }
-      // })
-      // $('div.container-fluid').on('click', function (event) {
-      //   event.stopPropagation()
-      //   let flag = $('body').hasClass('menu-is-open')
-      //   flag && _this.toggle()
-      // })
-      // 音乐按钮
-      this.audioAutoPlay('media');
-      $("#audio_btn").bind('click', function() {
-        $(this).hasClass("off") ? ($(this).addClass("play_yinfu").removeClass("off"), $("#yinfu").addClass("rotate"), $("#media")[0].play()) : ($(this).addClass("off").removeClass("play_yinfu"), $("#yinfu").removeClass("rotate"),
-        $("#media")[0].pause());
-      });
+      this.dropBootstrap();
+      this.initPlugins();
     },
-    audioAutoPlay (id) {
-        var audio = document.getElementById(id);
+    dropBootstrap() {
+      // Drop Bootstarp low-performance Navbar
+      // Use customize navbar with high-quality material design animation
+      // in high-perf jank-free CSS3 implementation
+      var $body   = document.body;
+      var $toggle = document.querySelector('.navbar-toggle');
+      var $navbar = document.querySelector('#huxblog_navbar');
+      var $collapse = document.querySelector('.navbar-collapse');
+
+      $toggle.addEventListener('click', handleMagic)
+      function handleMagic(e){
+        if ($navbar.className.indexOf('in') > 0) {
+        // CLOSE
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        }else{
+        // OPEN
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+      }
+    },
+    initPlugins() {
+      // 初始化tagcloud插件
+      $.fn.tagcloud.defaults = {
+        //size: {start: 1, end: 1, unit: 'em'},
+        color: {start: '#bbbbee', end: '#0085a1'},
+      };
+      $('#tag_cloud a').tagcloud();
+      var $nav = document.querySelector("nav");
+      if($nav) FastClick.attach($nav);
     },
     removeCurrent(name) {
       if (name !== 'Index' && name !== 'login' && name !== 'register') {
@@ -172,7 +222,8 @@ export default {
   computed: {
     ...mapGetters([
       'record',
-      'loading'
+      'loading',
+      'site'
     ]),
     getDocumentWidth () {
       return window.innerWidth
@@ -206,25 +257,25 @@ export default {
 }
 
 // pace
-// .pace {
-//   pointer-events: none;
+.pace {
+  pointer-events: none;
 
-//   user-select: none;
-// }
+  user-select: none;
+}
 
-// .pace-inactive {
-//   display: none;
-// }
+.pace-inactive {
+  display: none;
+}
 
-// .pace .pace-progress {
-//   background: #ff0000;
-//   position: fixed;
-//   z-index: 2000;
-//   top: 0;
-//   right: 100%;
-//   width: 100%;
-//   height: 2px;
-// }
+.pace .pace-progress {
+  background: #ff0000;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 2px;
+}
 
 // 音乐播放器
 #audio_btn {

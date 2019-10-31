@@ -4,7 +4,16 @@ const state = {
   record: '湘ICP备17000235号-1',
   loading: false,
   blogList: [],
-  blogDetail: {}
+  blogDetail: {},
+  site: {
+    name: 'LiRETRO\'s Blog',
+    date: new Date().getFullYear(),
+    twitterName: 'BeePeeeee',
+    zhihuName: 'LiRETRO',
+    facebookName: 'retro.li.1',
+    githubName: 'LiRETRO',
+    
+  }
 }
 
 // 获取状态(变量)
@@ -12,7 +21,8 @@ const getters = {
   record: state => state.record,
   loading: state => state.loading,
   blogList: state => state.blogList,
-  blogDetail: state => state.blogDetail
+  blogDetail: state => state.blogDetail,
+  site: state => state.site
 }
 // 可以异步操作，使用commit调用mutations修改状态
 const actions = {
