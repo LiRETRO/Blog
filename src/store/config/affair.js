@@ -11,8 +11,12 @@ const state = {
     twitterName: 'BeePeeeee',
     zhihuName: 'LiRETRO',
     facebookName: 'retro.li.1',
-    githubName: 'LiRETRO',
-    
+    githubName: 'LiRETRO'
+  },
+  header: {
+    title: 'LiRETRO\'s Blog',
+    subheading: 'Do What I Wanna Do',
+    background: '/static/images/header_bg.png'
   }
 }
 
@@ -22,7 +26,8 @@ const getters = {
   loading: state => state.loading,
   blogList: state => state.blogList,
   blogDetail: state => state.blogDetail,
-  site: state => state.site
+  site: state => state.site,
+  header: state => state.header
 }
 // 可以异步操作，使用commit调用mutations修改状态
 const actions = {
@@ -35,7 +40,8 @@ const actions = {
     affair.getBlogDetail(products).then(function (result) {
       commit('setBlogDetail', result)
     })
-  }
+  },
+
 }
 // 只能同步操作，修改状态
 const mutations = {
@@ -47,6 +53,9 @@ const mutations = {
   },
   setBlogDetail (state, payload) {
     state.blogDetail = payload
+  },
+  setHeader (state, payload) {
+    state.header = payload;
   }
 }
 

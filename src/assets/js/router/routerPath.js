@@ -46,8 +46,8 @@ export default [
         }
       },
       {
-        path: '/blog',
-        name: 'blog',
+        path: '/archive',
+        name: 'archive',
         component: blog,
         meta: {
           title: '博客'

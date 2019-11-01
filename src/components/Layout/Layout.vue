@@ -1,43 +1,13 @@
 <template>
   <div class="layout-root">
-    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-          <router-link class="navbar-brand" to="/">{{ site.name }}</router-link>
-        </div>
-        <div id="huxblog_navbar">
-          <div class="navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-              <li>
-                <router-link replace to="/">Home</router-link>
-              </li>
-              <li>
-                <router-link replace to="/about/">About</router-link>
-              </li>
-              <li>
-                <router-link replace to="/archive/">Archive</router-link>
-              </li>
-              <li>
-                <router-link replace to="/portfolio/">Portfolio</router-link>
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
-    <header class="intro-header" style="background-image: url('/static/images/header_bg.png')">
+    <publicNav></publicNav>
+    <header class="intro-header" :style="`background-image: url('${header.background}')`">
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="site-heading">
-              <h1>LiRETRO's Blog</h1>
-              <span class="subheading">Do what i wanna do</span>
+              <h1>{{ header.title }}</h1>
+              <span class="subheading">{{ header.subheading }}</span>
             </div>
           </div>
         </div>
@@ -45,9 +15,8 @@
     </header>
     <div class="container">
       <transition :name="transitionName" mode="out-in" >
-        <keep-alive>
-          <router-view class="child-view" :v-show="!isIndex" ref="child" @toggleLoading="toggleLoading"/>
-        </keep-alive>
+        <!-- <keep-alive></keep-alive> -->
+        <router-view class="child-view" :v-show="!isIndex" ref="child" @toggleLoading="toggleLoading"/>
       </transition>
     </div>
     <footer>
@@ -64,10 +33,10 @@
                     </a>
                 </li>
                 <li>
-                  <a target="_blank" :href="`https://www.zhihu.com/people/${ site.zhihuName }`">
+                  <a target="_blank" :href="`https://www.zhihu.com/people/${site.zhihuName}`">
                     <span class="fa-stack fa-lg">
                       <i class="fa fa-circle fa-stack-2x"></i>
-                      <i class="fa  fa-stack-1x fa-inverse">知</i>
+                      <i class="fa fa-stack-1x fa-inverse">知</i>
                     </span>
                   </a>
                 </li>
@@ -99,7 +68,7 @@
             <p class="copyright text-muted">
               Copyright &copy; {{ site.name }} {{ site.date }} All Rights Reserved.
               <br>
-              Theme by <a href="http://huangxuan.me">Hux</a> |
+              Theme by <a target="_blank" href="https://github.com/huxpro">Hux</a> |
               <iframe
                   style="margin-left: 2px; margin-bottom:-5px;"
                   frameborder="0" scrolling="0" width="91px" height="20px"
@@ -114,14 +83,15 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-import loading from '@/components/Loading'
+import { mapGetters } from 'vuex';
+import loading from '@/components/Loading';
+import publicNav from '@/components/PublicNav.vue'
 export default {
   data () {
     return {
       transitionName: 'slide-right',
       menu: [
-        'about', 'blog', 'picture', 'login', 'register'
+        'home', 'about', 'archive'
       ],
       isIndex: true,
       curPageName: '',
@@ -217,13 +187,15 @@ export default {
     next()
   },
   components: {
-    loading
+    loading,
+    publicNav
   },
   computed: {
     ...mapGetters([
       'record',
       'loading',
-      'site'
+      'site',
+      'header'
     ]),
     getDocumentWidth () {
       return window.innerWidth

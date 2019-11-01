@@ -3,45 +3,19 @@
     <!-- USE SIDEBAR -->
     <!-- PostList Container -->
     <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 postlist-container">
-      <div class="post-preview">
-        <a href="/2019/09/13/peter-john-landin/">
-          <h2 class="post-title">Peter John Landin</h2>
-
-          <h3 class="post-subtitle">「计算机科学偶像」- 彼得·约翰·兰丁</h3>
-
-          <div class="post-content-preview">
-            wiki
-            维基
-            I was long curious about how does λ calculus become the foundation of formalizaing programming languages. It’s strange that I haven’t look u...
-          </div>
-        </a>
-        <p class="post-meta">Posted by Hux on September 13, 2019</p>
-      </div>
-      <hr />
-      <!-- Pager -->
-      <ul class="pager">
-        <li class="next">
-          <a href="/page2">Older Posts →</a>
-        </li>
-      </ul>
+      <blog-content :data="blogDataList" :pageSize="query.page.pageSize" :totalRecord="totalNum" @onPageChange="onPageChange"></blog-content>
     </div>
     <!-- Sidebar Container -->
-    <div
-      class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12 col-xs-12 sidebar-container"
-    >
+    <div class="col-lg-3 col-lg-offset-0 col-md-3 col-md-offset-0 col-sm-12 col-xs-12 sidebar-container">
       <!-- Featured Tags -->
-
       <section>
         <h5>
-          <a href="/archive/">FEATURED TAGS</a>
+          <router-link to="/archive">FEATURED TAGS</router-link>
         </h5>
         <div class="tags">
           <a data-sort="0065" href="/archive/?tag=%E7%9F%A5%E4%B9%8E" title="知乎" rel="10">知乎</a>
-
           <a data-sort="0036" href="/archive/?tag=%E7%AC%94%E8%AE%B0" title="笔记" rel="39">笔记</a>
-
           <a data-sort="0039" href="/archive/?tag=Coq" title="Coq" rel="36">Coq</a>
-
           <a
             data-sort="0039"
             href="/archive/?tag=SF+%28%E8%BD%AF%E4%BB%B6%E5%9F%BA%E7%A1%80%29"
@@ -146,21 +120,18 @@
             title="hUX 随想录"
             rel="2"
           ></a>
-          <a href="/about/">ABOUT ME</a>
+          <router-link to="/about">ABOUT ME</router-link>
         </h5>
         <div class="short-about">
-          <img src="/img/avatar-hux-ny.jpg" />
-
+          <img src="/static/images/avatar-liretro.jpeg" />
           <p>
-            For the next quantum leap
-            <br />离开世界之前，一切都是过程
+            Ther's no moving back in the world.
           </p>
-
           <!-- SNS Link -->
 
           <ul class="list-inline">
             <li>
-              <a href="https://twitter.com/huxpro">
+              <a href="https://twitter.com/BeePeeeee">
                 <span class="fa-stack fa-lg">
                   <i class="fa fa-circle fa-stack-2x"></i>
                   <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
@@ -169,7 +140,7 @@
             </li>
 
             <li>
-              <a target="_blank" href="https://www.zhihu.com/people/huxpro">
+              <a target="_blank" href="https://www.zhihu.com/people/LiRETRO">
                 <span class="fa-stack fa-lg">
                   <i class="fa fa-circle fa-stack-2x"></i>
                   <i class="fa fa-stack-1x fa-inverse">知</i>
@@ -177,17 +148,17 @@
               </a>
             </li>
 
-            <li>
-              <a target="_blank" href="https://weibo.com/huxpro">
+            <!-- <li>
+              <a target="_blank" href="https://weibo.com/">
                 <span class="fa-stack fa-lg">
                   <i class="fa fa-circle fa-stack-2x"></i>
                   <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
                 </span>
               </a>
-            </li>
+            </li> -->
 
             <li>
-              <a target="_blank" href="https://github.com/huxpro">
+              <a target="_blank" href="https://github.com/LiRETRO">
                 <span class="fa-stack fa-lg">
                   <i class="fa fa-circle fa-stack-2x"></i>
                   <i class="fa fa-github fa-stack-1x fa-inverse"></i>
@@ -197,48 +168,65 @@
           </ul>
         </div>
       </section>
-
-      <!-- Friends Blog -->
-
-      <hr />
-      <h5>FRIENDS</h5>
-      <ul class="list-inline">
-        <li>
-          <a href="http://mida.re/">乱序</a>
-        </li>
-
-        <li>
-          <a href="https://xuechundesign.github.io">Sherry Wu</a>
-        </li>
-
-        <li>
-          <a href="https://hmqk1995.github.io">Luke 的自留地</a>
-        </li>
-
-        <li>
-          <a href="http://ebnbin.com/">Ebn's Blog</a>
-        </li>
-
-        <li>
-          <a href="https://blog.smdcn.net">SmdCn's Blog</a>
-        </li>
-
-        <li>
-          <a href="http://tiye.me/">JiyinYiyong</a>
-        </li>
-
-        <li>
-          <a href="https://www.ruoyaowu.com/">David's Game</a>
-        </li>
-
-        <li>
-          <a href="http://dhong.co">DHong Say</a>
-        </li>
-
-        <li>
-          <a href="https://ingf.github.io/">尹峰以为</a>
-        </li>
-      </ul>
     </div>
   </div>
 </template>
+<script>
+import { getBlogList } from "@/api/BlogApi";
+import { mapGetters, mapActions } from "vuex";
+import blogContent from "@/components/Blog.vue";
+export default {
+  data() {
+    return {
+      query: {
+        page: {
+          pageSize: 10,
+          pageNum: 1
+        }
+      },
+      totalNum: 0,
+      blogDataList: []
+    };
+  },
+  computed: {
+    ...mapGetters(["ipJson"])
+  },
+  methods: {
+    ...mapActions(["getLocalIp"]),
+    init() {
+      this.fetchList(this.query);
+      // 更改标题背景
+      this.$store.commit('setHeader', {
+        title: 'LiRETRO\'s Blog',
+        subheading: 'Do What I Wanna Do',
+        background: '/static/images/header_bg.png'
+      });
+    },
+    fetchList(query) {
+      let _this = this;
+      this.$emit("toggleLoading", true);
+      getBlogList(query)
+        .then(data => {
+          _this.blogDataList = data.data;
+          _this.totalNum = data.page.totalNum;
+          _this.$emit("toggleLoading", false);
+        })
+        .catch(error => {
+          _this.$emit("toggleLoading", false);
+          alert(error.message);
+        });
+    },
+    onPageChange(pageNum) {
+      this.query.page["pageNum"] = pageNum;
+      this.fetchList(this.query);
+    },
+
+  },
+  components: {
+    "blog-content": blogContent
+  },
+  mounted() {
+    this.init();
+  }
+};
+</script>

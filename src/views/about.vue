@@ -32,6 +32,19 @@ export default {
     return {
       
     }
+  },
+  methods: {
+    init() {
+      // 更改标题背景
+      this.$store.commit('setHeader', {
+        title: 'About Me',
+        subheading: 'There\'s No Moving Back In The World.',
+        background: '/static/images/header_bg.png'
+      });
+    }
+  },
+  mounted () {
+    this.init();
   }
 }
 </script>

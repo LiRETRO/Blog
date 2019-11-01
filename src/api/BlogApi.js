@@ -2,7 +2,7 @@ import request from 'axios'
 
 export function publishBlog (blogObj) {
   return request.request({
-    url: '/api/blog/addBlog',
+    url: 'api/blog/addBlog',
     method: 'PUT',
     data: blogObj
   })
@@ -10,7 +10,7 @@ export function publishBlog (blogObj) {
 
 export function getBlogList (query) {
   return request.request({
-    url: '/api/blog/getBlogList',
+    url: 'api/blog/getBlogList',
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -21,4 +21,8 @@ export function getBlogList (query) {
 
 export function getBlogDetail (id) {
   return request.get(`api/blog/getBlogDetail/${id}`)
+}
+
+export function getBlogPrevAndNext (id) {
+  return request.get(`api/blog/getBlogPrevAndNext/${id}`);
 }

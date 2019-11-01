@@ -241,6 +241,18 @@ pre code{
 	left: 0;
 	width: 100%;
 	z-index: 3;
+	&.invert {
+		.navbar-brand,
+		.nav li a{
+			color: #404040;
+		}
+		.navbar-brand:hover,
+		.navbar-brand:focus,
+		.nav li a:hover,
+		.nav li a:focus {
+			color: #0085a1;
+		}
+	}
 	.sans-serif;
 	.navbar-brand {
 		font-weight: 800;
@@ -355,6 +367,15 @@ pre code{
 	background: no-repeat center center;
 	background-color: @gray;
 	background-attachment: scroll;
+	&.style-text {
+		background: 0 0;
+		.site-heading,
+		.post-heading,
+		.page-heading {
+			padding: 85px 0 20px;
+			color: #404040;
+		}
+	}
 	.background-cover;
 	// NOTE: Background images are set within the HTML using inline CSS!
 	margin-bottom: 0px;  /* 0 on mobile, modify by Hux */
