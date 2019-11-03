@@ -13,97 +13,10 @@
           <router-link to="/archive">FEATURED TAGS</router-link>
         </h5>
         <div class="tags">
-          <a data-sort="0065" href="/archive/?tag=%E7%9F%A5%E4%B9%8E" title="知乎" rel="10">知乎</a>
-          <a data-sort="0036" href="/archive/?tag=%E7%AC%94%E8%AE%B0" title="笔记" rel="39">笔记</a>
-          <a data-sort="0039" href="/archive/?tag=Coq" title="Coq" rel="36">Coq</a>
-          <a
-            data-sort="0039"
-            href="/archive/?tag=SF+%28%E8%BD%AF%E4%BB%B6%E5%9F%BA%E7%A1%80%29"
-            title="SF (软件基础)"
-            rel="36"
-          >SF (软件基础)</a>
-
-          <a
-            data-sort="0056"
-            href="/archive/?tag=PLF+%28%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80%29"
-            title="PLF (编程语言基础)"
-            rel="19"
-          >PLF (编程语言基础)</a>
-
-          <a data-sort="0056" href="/archive/?tag=Web" title="Web" rel="19">Web</a>
-
-          <a
-            data-sort="0059"
-            href="/archive/?tag=LF+%28%E9%80%BB%E8%BE%91%E5%9F%BA%E7%A1%80%29"
-            title="LF (逻辑基础)"
-            rel="16"
-          >LF (逻辑基础)</a>
-
-          <a data-sort="0068" href="/archive/?tag=UX%2FUI" title="UX/UI" rel="7">UX/UI</a>
-
-          <a data-sort="0069" href="/archive/?tag=%E4%BA%A7%E5%93%81" title="产品" rel="6">产品</a>
-
-          <a data-sort="0069" href="/archive/?tag=PWA" title="PWA" rel="6">PWA</a>
-
-          <a data-sort="0071" href="/archive/?tag=JavaScript" title="JavaScript" rel="4">JavaScript</a>
-
-          <a data-sort="0071" href="/archive/?tag=Slides" title="Slides" rel="4">Slides</a>
-
-          <a data-sort="0072" href="/archive/?tag=%E7%94%9F%E6%B4%BB" title="生活" rel="3">生活</a>
-
-          <a data-sort="0072" href="/archive/?tag=%E8%AF%91" title="译" rel="3">译</a>
-
-          <a data-sort="0072" href="/archive/?tag=%E9%98%BF%E9%87%8C" title="阿里" rel="3">阿里</a>
-
-          <a
-            data-sort="0072"
-            href="/archive/?tag=%F0%9F%87%AC%F0%9F%87%A7"
-            title="🇬🇧"
-            rel="3"
-          >🇬🇧</a>
-
-          <a data-sort="0072" href="/archive/?tag=Vim" title="Vim" rel="3">Vim</a>
-
-          <a
-            data-sort="0073"
-            href="/archive/?tag=%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6"
-            title="计算机科学"
-            rel="2"
-          >计算机科学</a>
-
-          <a
-            data-sort="0073"
-            href="/archive/?tag=%E8%AE%A1%E7%AE%97%E7%90%86%E8%AE%BA"
-            title="计算理论"
-            rel="2"
-          >计算理论</a>
-
-          <a data-sort="0073" href="/archive/?tag=CSS" title="CSS" rel="2">CSS</a>
-
-          <a data-sort="0073" href="/archive/?tag=Wechat" title="Wechat" rel="2">Wechat</a>
-
-          <a
-            data-sort="0073"
-            href="/archive/?tag=hUX+%E9%9A%8F%E6%83%B3%E5%BD%95"
-            title="hUX 随想录"
-            rel="2"
-          >hUX 随想录</a>
+          <router-link v-for="tag in tags" :key="tag.tagId" :to="{ name: 'blog', params: { tag: tag.tagId } }" v-text="tag.tagName"></router-link>
         </div>
-        <a
-          data-sort="0073"
-          href="/archive/?tag=hUX+%E9%9A%8F%E6%83%B3%E5%BD%95"
-          title="hUX 随想录"
-          rel="2"
-        ></a>
       </section>
-      <a
-        data-sort="0073"
-        href="/archive/?tag=hUX+%E9%9A%8F%E6%83%B3%E5%BD%95"
-        title="hUX 随想录"
-        rel="2"
-      >
-        <!-- Short About -->
-      </a>
+      <!-- Short About -->
       <section class="visible-md visible-lg">
         <a
           data-sort="0073"
@@ -173,6 +86,7 @@
 </template>
 <script>
 import { getBlogList } from "@/api/BlogApi";
+import { getTags } from "@/api/TagsApi";
 import { mapGetters, mapActions } from "vuex";
 import blogContent from "@/components/Blog.vue";
 export default {
@@ -184,8 +98,15 @@ export default {
           pageNum: 1
         }
       },
+      tagsQuery: {
+        page: {
+          pageSize: 200,
+          pageNum: 1
+        }
+      },
       totalNum: 0,
-      blogDataList: []
+      blogDataList: [],
+      tags: []
     };
   },
   computed: {
@@ -195,6 +116,7 @@ export default {
     ...mapActions(["getLocalIp"]),
     init() {
       this.fetchList(this.query);
+      this.fetchTags(this.tagsQuery);
       // 更改标题背景
       this.$store.commit('setHeader', {
         title: 'LiRETRO\'s Blog',
@@ -205,22 +127,27 @@ export default {
     fetchList(query) {
       let _this = this;
       this.$emit("toggleLoading", true);
-      getBlogList(query)
-        .then(data => {
+      getBlogList(query).then(data => {
           _this.blogDataList = data.data;
           _this.totalNum = data.page.totalNum;
           _this.$emit("toggleLoading", false);
-        })
-        .catch(error => {
+        }).catch(error => {
           _this.$emit("toggleLoading", false);
           alert(error.message);
         });
+    },
+    fetchTags(query) {
+      let _this = this;
+      getTags(query).then(data => {
+        _this.tags = data.data.list;
+      }).catch(error => {
+        alert(error.message);
+      });
     },
     onPageChange(pageNum) {
       this.query.page["pageNum"] = pageNum;
       this.fetchList(this.query);
     },
-
   },
   components: {
     "blog-content": blogContent

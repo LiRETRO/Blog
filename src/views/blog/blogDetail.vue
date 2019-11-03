@@ -28,20 +28,22 @@
       <!-- Post Container -->
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 post-container">
             <div v-html="blogDetail.blogContent"></div>
-                  <ul class="pager">
-                      <li class="previous">
-                          <router-link v-if="prevAndNext.prev" :to="`/detail/${prevAndNext.prev.blogId}`">&larr; Previous Post <br><span>{{ prevAndNext.prev.blogTitle }}</span></router-link>
-                          <a disabled v-else>&larr; Previous Post <br><span>无</span></a>
-                      </li>
-                      <li class="next">
-                          <router-link v-if="prevAndNext.next" :to="`/detail/${prevAndNext.next.blogId}`">Next Post &rarr; <br><span>{{ prevAndNext.next.blogTitle }}</span></router-link>
-                          <a disabled v-else>Next Post &rarr; <br><span>无</span></a>
-                      </li>
-                  </ul>
-              </div>
+              <ul class="pager">
+                  <li class="previous">
+                      <router-link v-if="prevAndNext.prev" :to="`/detail/${prevAndNext.prev.blogId}`">&larr; Previous Post <br><span>{{ prevAndNext.prev.blogTitle }}</span></router-link>
+                      <a disabled v-else>&larr; Previous Post <br><span>无</span></a>
+                  </li>
+                  <li class="next">
+                      <router-link v-if="prevAndNext.next" :to="`/detail/${prevAndNext.next.blogId}`">Next Post &rarr; <br><span>{{ prevAndNext.next.blogTitle }}</span></router-link>
+                      <a disabled v-else>Next Post &rarr; <br><span>无</span></a>
+                  </li>
+              </ul>
+              <comment></comment>
+            </div>
           </div>
       </div>
     </article>
+    <publicFooter></publicFooter>
   </div>
 </template>
 
@@ -49,6 +51,8 @@
 import { getBlogDetail, getBlogPrevAndNext } from '@/api/BlogApi';
 import { mapGetters } from 'vuex';
 import publicNav from '@/components/PublicNav.vue';
+import publicFooter from '@/components/Footer.vue';
+import comment from '@/components/Comment.vue';
 export default {
   data () {
     return {
@@ -96,7 +100,9 @@ export default {
     }
   },
   components: {
-    'publicNav': publicNav
+    publicNav,
+    publicFooter,
+    comment
   },
   created () {
     this.init()

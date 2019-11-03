@@ -23,10 +23,14 @@
         </a>
       </div> -->
     </div>
+    <myProject></myProject>
+    <comment></comment>
   </section>
 </template>
 
 <script>
+import comment from '@/components/Comment.vue';
+import myProject from '@/views/myProject.vue';
 export default {
   data () {
     return {
@@ -42,6 +46,10 @@ export default {
         background: '/static/images/header_bg.png'
       });
     }
+  },
+  components: {
+    comment,
+    myProject
   },
   mounted () {
     this.init();

@@ -22,9 +22,9 @@
             <li>
               <router-link replace to="/archive/">Archive</router-link>
             </li>
-            <!-- <li>
-              <router-link replace to="/portfolio/">Portfolio</router-link>
-            </li> -->
+            <li>
+              <router-link replace to="/publishBlog/">Publish</router-link>
+            </li>
           </ul>
         </div>
       </div>

@@ -2,12 +2,12 @@ import { isAbsolute } from 'path'
 
 const Hello = () => import ('@/components/HelloWorld.vue')
 const Layout = () => import ('@/components/Layout/Layout.vue')
+const NotFound = () => import ('@/components/NotFound.vue')
 const Home = () => import ('@/components/Home.vue')
 const PublishBlog = () => import ('@/components/Layout/PublishBlog.vue')
 const about = () => import ('@/views/about.vue')
 const blog = () => import ('@/views/blog/blog.vue')
 const blogDetail = () => import ('@/views/blog/blogDetail.vue')
-const picture = () => import ('@/views/picture.vue')
 const login = () => import ('@/views/userAction/login.vue')
 const register = () => import ('@/views/userAction/register.vue')
 
@@ -20,6 +20,11 @@ export default [
     meta: {
       title: '欢迎'
     }
+  },
+  {
+    path: '*',
+    name: 'NotFound',
+    component: NotFound
   },
   {
     path: '/home',
@@ -51,15 +56,8 @@ export default [
         component: blog,
         meta: {
           title: '博客'
-        }
-      },
-      {
-        path: '/picture',
-        name: 'picture',
-        component: picture,
-        meta: {
-          title: 'picture'
-        }
+        },
+        props: true
       },
       {
         path: '/login',

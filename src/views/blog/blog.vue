@@ -1,52 +1,71 @@
 <template>
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-            <!-- 标签云 -->
-      <div id='tag_cloud' class="tags">
-        {% for tag in site.tags %}
-        <a href="#{{ tag[0] }}" title="{{ tag[0] }}" rel="{{ tag[1].size }}">{{ tag[0] }}</a>
-        {% endfor %}
+      <div id="tag_cloud" class="tags tags-sup js-tags">
+        <a class="tag-button--all focus" data-encode>
+          Show All
+          <sup>75</sup>
+        </a>
+        <a
+          data-sort="0036"
+          data-encode="%E7%AC%94%E8%AE%B0"
+          class="tag-button"
+          title="笔记"
+          rel="39"
+          style="background-color: rgb(47, 147, 180);"
+        >
+          笔记
+          <sup>39</sup>
+        </a>
       </div>
+      <div class="mini-post-list js-result">
+        <section>
+          <a
+            data-sort="0074"
+            data-encode="QC+%28Quickcheck%29"
+            class="tag-button"
+            title="QC (Quickcheck)"
+            rel="1"
+          >
+            <span class="fa listing-seperator">
+              <span class="tag-text">2019</span>
+            </span>
+          </a>
+          <div class="post-preview item" data-tags="CS+Idols">
+            <a
+              data-sort="0074"
+              data-encode="QC+%28Quickcheck%29"
+              class="tag-button"
+              title="QC (Quickcheck)"
+              rel="1"
+            ></a>
+            <a href="/2019/09/13/peter-john-landin/">
+              <h2 class="post-title">Peter John Landin</h2>
 
-            <!-- 标签列表 -->
-      {% for tag in site.tags %}
-      <div class="one-tag-list">
-          <span class="fa fa-tag listing-seperator" id="{{ tag[0] }}">
-                    <span class="tag-text">{{ tag[0] }}</span>
-                </span>
-        {% for post in tag[1] %}
-          <!-- <li class="listing-item">
-          <time datetime="{{ post.date | date:"%Y-%m-%d" }}">{{ post.date | date:"%Y-%m-%d" }}</time>
-          <a href="{{ post.url }}" title="{{ post.title }}">{{ post.title }}</a>
-          </li> -->
-        <div class="post-preview">
-            <a href="{{ post.url | prepend: site.baseurl }}">
-                <h2 class="post-title">
-                            {{ post.title }}
-                </h2>
-                {% if post.subtitle %}
-                <h3 class="post-subtitle">
-                    {{ post.subtitle }}
-                </h3>
-                {% endif %}
+              <h3 class="post-subtitle">「计算机科学偶像」- 彼得·约翰·兰丁</h3>
             </a>
-            <!-- <p class="post-meta">{{ post.date | date:"%Y-%m-%d" }}</p> -->
-        </div>
-        <hr>
-        {% endfor %}
-      </div>
-      {% endfor %}
+            <hr />
+          </div>
+          <div class="post-preview item" data-tags="Vim,Emacs">
+            <a href="/2019/09/08/spacemacs-workflow/">
+              <h2 class="post-title">My Spacemacs Workflow</h2>
 
+              <h3 class="post-subtitle">From Vim to Spacemacs</h3>
+            </a>
+            <hr />
+          </div>
+        </section>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import blogContent from '@/components/Blog.vue'
-import { getBlogList } from '@/api/BlogApi'
-import { mapGetters, mapActions } from 'vuex'
+import blogContent from "@/components/Blog.vue";
+import { getBlogList } from "@/api/BlogApi";
+import { mapGetters, mapActions } from "vuex";
 export default {
-  data () {
+  data() {
     return {
       query: {
         page: {
@@ -56,49 +75,48 @@ export default {
       },
       totalNum: 0,
       blogDataList: []
-    }
+    };
   },
   computed: {
-    ...mapGetters([
-      'ipJson'
-    ])
+    ...mapGetters(["ipJson"])
   },
   methods: {
-    ...mapActions([
-      'getLocalIp'
-    ]),
-    init () {
+    ...mapActions(["getLocalIp"]),
+    init() {
       this.fetchList(this.query);
       // 更改标题背景
-      this.$store.commit('setHeader', {
-        title: 'Archive',
-        subheading: 'Stay Hungry, Stay Foolish',
-        background: '/static/images/header_bg.png'
+      this.$store.commit("setHeader", {
+        title: "Archive",
+        subheading: "Stay Hungry, Stay Foolish",
+        background: "/static/images/header_bg.png",
+        id: 'tag-heading'
       });
     },
-    fetchList (query) {
-      let _this = this
-      this.$emit('toggleLoading', true)
-      getBlogList(query).then(data => {
-        _this.blogDataList = data.data
-        _this.totalNum = data.page.totalNum
-        _this.$emit('toggleLoading', false)
-      }).catch(error => {
-        _this.$emit('toggleLoading', false)
-        alert(error.message)
-      })
+    fetchList(query) {
+      let _this = this;
+      this.$emit("toggleLoading", true);
+      getBlogList(query)
+        .then(data => {
+          _this.blogDataList = data.data;
+          _this.totalNum = data.page.totalNum;
+          _this.$emit("toggleLoading", false);
+        })
+        .catch(error => {
+          _this.$emit("toggleLoading", false);
+          alert(error.message);
+        });
     },
-    onPageChange (pageNum) {
-      this.query.page['pageNum'] = pageNum
-      this.fetchList(this.query)
+    onPageChange(pageNum) {
+      this.query.page["pageNum"] = pageNum;
+      this.fetchList(this.query);
     }
-	},
-	components: {
-		'blog-content': blogContent
-	},
-  mounted () {
-    this.init()
+  },
+  components: {
+    "blog-content": blogContent
+  },
+  mounted() {
+    this.init();
   }
-}
+};
 </script>
 
