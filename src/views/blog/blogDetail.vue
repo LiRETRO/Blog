@@ -1,5 +1,5 @@
 <template>
-  <div :key="$route.path + $route.query.t">
+  <div>
     <!-- 未来也会加上 -->
     <!-- <publicNav :isInvert="!blogDetail.blogBackground"></publicNav> -->
     <publicNav :isInvert="false"></publicNav>
@@ -7,7 +7,7 @@
     <!-- <header :class="['intro-header', blogDetail.blogBackground ? blogDetail.blogBackground : 'style-text']"> -->
     <header class="intro-header">
       <div class="header-mask"></div>
-      <div class="container">
+      <div class="container" v-if="blogDetail">
         <div class="row">
           <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <div class="post-heading">
@@ -85,11 +85,9 @@ export default {
   methods: {
     init () {
       let _this = this
-      getBlogDetail(this.blogId).then(function (data) {
-        _this.blogDetail = data.data;
-      });
-      getBlogPrevAndNext(this.blogId).then(function (data) {
-        _this.prevAndNext = data.data;
+      Promise.all([getBlogDetail(this.blogId), getBlogPrevAndNext(this.blogId)]).then(function (data) {
+        _this.blogDetail = data[0].data;
+        _this.prevAndNext = data[1].data;
       });
     },
     formatDate (date) {
@@ -98,9 +96,9 @@ export default {
       }
       return `${this.monthMapping[date.getMonth() + 1]} ${date.getDate()}, ${date.getFullYear()}`;
     },
-    clear() {
-      this.blogDetail = {};
-      this.prevAndNext = {};
+    setData(data) {
+      this.blogDetail = Object.assign({}, data[0].data);
+      this.prevAndNext = Object.assign({}, data[1].data);
     }
   },
   components: {
@@ -108,8 +106,25 @@ export default {
     publicFooter,
     comment
   },
-  mounted () {
-    this.init();
+  beforeRouteEnter(to, from, next) {
+    Promise.all([getBlogDetail(to.params.id), getBlogPrevAndNext(to.params.id)]).then(function (data) {
+      next(vm => {
+        vm.setData(data);
+      });
+    }).catch(error => {
+      alert(error.message);
+      next(false);
+    });
+  },
+  beforeRouteUpdate(to, from, next) {
+    let _this = this;
+    Promise.all([getBlogDetail(to.params.id), getBlogPrevAndNext(to.params.id)]).then(function (data) {
+      _this.setData(data);
+      next();
+    }).catch(error => {
+      alert(error.message);
+      next(false);
+    });
   }
 }
 </script>

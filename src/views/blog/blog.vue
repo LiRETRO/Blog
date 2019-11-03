@@ -2,17 +2,11 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <div id="tag_cloud" class="tags tags-sup js-tags">
-        <a class="tag-button--all focus" data-encode>
+        <a class="tag-button--all focus">
           Show All
           <sup>75</sup>
         </a>
         <a
-          data-sort="0036"
-          data-encode="%E7%AC%94%E8%AE%B0"
-          class="tag-button"
-          title="笔记"
-          rel="39"
-          style="background-color: rgb(47, 147, 180);"
         >
           笔记
           <sup>39</sup>
@@ -21,11 +15,6 @@
       <div class="mini-post-list js-result">
         <section>
           <a
-            data-sort="0074"
-            data-encode="QC+%28Quickcheck%29"
-            class="tag-button"
-            title="QC (Quickcheck)"
-            rel="1"
           >
             <span class="fa listing-seperator">
               <span class="tag-text">2019</span>
@@ -33,11 +22,6 @@
           </a>
           <div class="post-preview item" data-tags="CS+Idols">
             <a
-              data-sort="0074"
-              data-encode="QC+%28Quickcheck%29"
-              class="tag-button"
-              title="QC (Quickcheck)"
-              rel="1"
             ></a>
             <a href="/2019/09/13/peter-john-landin/">
               <h2 class="post-title">Peter John Landin</h2>
@@ -84,6 +68,7 @@ export default {
     ...mapActions(["getLocalIp"]),
     init() {
       this.fetchList(this.query);
+      this.initPlugins();
       // 更改标题背景
       this.$store.commit("setHeader", {
         title: "Archive",
@@ -109,6 +94,14 @@ export default {
     onPageChange(pageNum) {
       this.query.page["pageNum"] = pageNum;
       this.fetchList(this.query);
+    },
+    initPlugins() {
+      // 初始化tagcloud插件
+      $.fn.tagcloud.defaults = {
+        //size: {start: 1, end: 1, unit: 'em'},
+        color: {start: '#bbbbee', end: '#0085a1'},
+      };
+      $('#tag_cloud a').tagcloud();
     }
   },
   components: {
