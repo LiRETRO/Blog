@@ -5,7 +5,7 @@
         <h2 class="post-title" :title="item.blogTitle" v-if="item.blogTitle.length > 28" v-text="item.blogTitle.substring(0, 28)"></h2>
         <h2 class="post-title" :title="item.blogTitle" v-else v-text="item.blogTitle"></h2>
 
-        <h3 class="post-subtitle" :subTitle="item.blogSubTitle" v-if="item.blogSubTitle" v-text="item.blogSubTitle">「计算机科学偶像」- 彼得·约翰·兰丁</h3>
+        <h3 class="post-subtitle" :subTitle="item.blogSubTitle" v-if="item.blogSubTitle" v-text="item.blogSubTitle"></h3>
 
         <div class="post-content-preview" v-if="item.blogContent.length > 200" v-html="item.blogContent.substring(0, 200) + ' ......'"></div>
         <div class="post-content-preview" v-else v-html="item.blogContent"></div>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div :key="$route.path + $route.query.t">
     <!-- 未来也会加上 -->
     <!-- <publicNav :isInvert="!blogDetail.blogBackground"></publicNav> -->
     <publicNav :isInvert="false"></publicNav>
@@ -97,6 +97,10 @@ export default {
         throw new Error('IllegalArgumentException: param must be date');
       }
       return `${this.monthMapping[date.getMonth() + 1]} ${date.getDate()}, ${date.getFullYear()}`;
+    },
+    clear() {
+      this.blogDetail = {};
+      this.prevAndNext = {};
     }
   },
   components: {
@@ -104,8 +108,8 @@ export default {
     publicFooter,
     comment
   },
-  created () {
-    this.init()
+  mounted () {
+    this.init();
   }
 }
 </script>

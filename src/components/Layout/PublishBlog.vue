@@ -2,9 +2,10 @@
     <div class="row">
         <!-- USE SIDEBAR -->
         <!-- PostList Container -->
-        <div class="col-lg-8 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 postlist-container">
+        <div class="col-lg-12 col-lg-offset-1 col-md-8 col-md-offset-1 col-sm-12 col-xs-12 postlist-container">
             <div class="title-container">
                 <input ref="title" placeholder="请输入标题"/>
+                <input ref="subTitle" placeholder="请输入副标题"/>
             </div>
             <div id="blogEditor">
             </div>
@@ -38,8 +39,9 @@ export default {
             });
         },
         publishBlog (event) {
-            let title = this.$refs.title.value
-            let content = this.editor.txt.html()
+            let title = this.$refs.title.value;
+            let subTitle = this.$refs.subTitle.value;
+            let content = this.editor.txt.html();
             if (title === '') {
                 alert('请输入标题！')
                 return false
@@ -48,8 +50,8 @@ export default {
                 alert('请输入内容！')
                 return false
             }
-            publishBlog( { blogTitle: title, blogContent: content } ).then(data => {
-                if (data.resultCode === 'success') {
+            publishBlog( { blogTitle: title, blogContent: content, blogSubTitle: subTitle } ).then(data => {
+                if (data.code === 200) {
                     alert(data.resultMessage)
                 }
             });
@@ -63,24 +65,25 @@ export default {
 
 <style lang="less">
     .title-container {
-        width: 70%;
+        width: 100%;
         height: auto;
         margin: auto auto 10px;
         display: block;
         input {
             width: 100%;
-            background: hsla(0,0%,100%,.2);
+            background: #efefef;
             box-shadow: 0 0 0 1px hsla(0,0%,100%,.5);
-            border-radius: 4px;
             border: none;
-            color: #d6dee4;
-            line-height: 26px;
-            height: 26px;
-            margin-left: -5px;
+            line-height: 46px;
+            height: 46px;
+            font-size: 16px;
             padding: 0 5px;
             position: relative;
             top: -1px;
             outline: none !important;
+            &:nth-child(2) {
+                margin-top: 10px;
+            }
             &:focus {
                 background: #fff;
                 box-shadow: inset 0 2px 4px rgba(35,54,86,.3);
@@ -90,7 +93,7 @@ export default {
     }
     #blogEditor {
         display: block;
-        width: 70%;
+        width: 100%;
         height: auto;
         margin: 0 auto;
         .w-e-text-container {
@@ -99,14 +102,13 @@ export default {
         }
     }
     .but-container {
-        width: 70%;
+        width: 100%;
         height: auto;
         margin: 10px auto auto;
         display: block;
         a {
             animation-name: change;
             height: 40px;
-            float: right;
             border-radius: 4px;
             background-color: #FF4351;
             border-color: #FF4351;

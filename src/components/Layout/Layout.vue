@@ -20,6 +20,7 @@
       </transition>
     </div>
     <publicFooter></publicFooter>
+    <loading :loadingVisible="loading"></loading>
   </div>
 </template>
 
@@ -33,7 +34,7 @@ export default {
     return {
       transitionName: 'slide-right',
       menu: [
-        'home', 'about', 'archive'
+        'home', 'about', 'archive', 'privatePublish'
       ],
       isIndex: true,
       curPageName: '',

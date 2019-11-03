@@ -37,7 +37,7 @@ String.prototype.format = function () {
 
 Vue.config.productionTip = false
 /* eslint-disable no-new */
-new Vue({
+let vue = new Vue({
   el: '#app',
   router,
   store,
