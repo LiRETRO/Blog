@@ -8,6 +8,7 @@ const PublishBlog = () => import ('@/components/Layout/PublishBlog.vue')
 const about = () => import ('@/views/about.vue')
 const blog = () => import ('@/views/blog/blog.vue')
 const blogDetail = () => import ('@/views/blog/blogDetail.vue')
+const blogPreview = () => import ('@/views/blog/blogPreview.vue')
 const login = () => import ('@/views/userAction/login.vue')
 const register = () => import ('@/views/userAction/register.vue')
 
@@ -82,7 +83,7 @@ export default [
         meta: {
           title: '发布博客'
         }
-      },
+      }
     ]
   },
   {
@@ -92,5 +93,11 @@ export default [
     meta: {
       title: '正文'
     }
+  },
+  {
+    path: '/preview',
+    name: 'blogPreview',
+    component: blogPreview,
+    props: true
   }
 ]

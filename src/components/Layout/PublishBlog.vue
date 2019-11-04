@@ -11,6 +11,7 @@
             </div>
             <div class="but-container">
                 <a ref="publishButton" @click="publishBlog">发布</a>
+                <a ref="previewButton" @click="previewBlog">预览</a>
             </div>
         </div>
     </div>
@@ -38,17 +39,38 @@ export default {
                 background: '/static/images/header_bg.png'
             });
         },
+        previewBlog (event) {
+            let title = this.$refs.title.value;
+            let subTitle = this.$refs.subTitle.value;
+            let content = this.editor.txt.html();
+            if (title === '') {
+                alert('请输入标题！');
+                return false;
+            }
+            if (content === '') {
+                alert('请输入内容！');
+                return false;
+            }
+            let blogDetail = {
+                blogTitle: title,
+                blogSubTitle: subTitle,
+                blogContent: content
+            };
+            // TODO 保存数据，在返回到编辑页面时进行填充
+            
+            let router = this.$router.push({ name: 'blogPreview', params: { blogDetail } });
+        },
         publishBlog (event) {
             let title = this.$refs.title.value;
             let subTitle = this.$refs.subTitle.value;
             let content = this.editor.txt.html();
             if (title === '') {
-                alert('请输入标题！')
-                return false
+                alert('请输入标题！');
+                return false;
             }
             if (content === '') {
-                alert('请输入内容！')
-                return false
+                alert('请输入内容！');
+                return false;
             }
             publishBlog( { blogTitle: title, blogContent: content, blogSubTitle: subTitle } ).then(data => {
                 if (data.code === 200) {
@@ -128,6 +150,9 @@ export default {
             transition-duration: .3s;
             animation-duration: 3s;
             animation-iteration-count: infinite;
+            &:not(:first-child) {
+                margin-left: 10px;
+            }
             &:hover {
                 background-color: #ff7680;
                 border-color: #ff7680;

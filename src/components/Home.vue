@@ -13,7 +13,7 @@
           <router-link to="/archive">FEATURED TAGS</router-link>
         </h5>
         <div class="tags">
-          <router-link v-for="tag in tags" :key="tag.tagId" :to="{ name: 'blog', params: { tag: tag.tagId } }" v-text="tag.tagName"></router-link>
+          <router-link v-for="tag in tags" :key="tag.tagId" :to="{ name: 'archive', params: { tag: tag.tagId } }" v-text="tag.tagName"></router-link>
         </div>
       </section>
       <!-- Short About -->
