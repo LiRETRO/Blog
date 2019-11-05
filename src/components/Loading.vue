@@ -11,6 +11,12 @@ export default {
 
     }
   },
+  methods: {
+    moitorScroll (event) {
+      console.log(event)
+      this.$refs['cover'].style.top = `${document.documentElement.scrollTop}px`;
+    }
+  },
   props: {
     loadingVisible: {
       type: Boolean,
@@ -22,6 +28,11 @@ export default {
       let container = this.$refs['cover'];
       container.style.top = `${document.documentElement.scrollTop}px`;
       container.className = `cover ${this.loadingVisible ? '' : 'hide'}`;
+      if (newVal) {
+        window.addEventListener('scroll', this.moitorScroll);
+      } else {
+        window.removeEventListener('scroll', this.moitorScroll);
+      }
     }
   }
 }
@@ -36,6 +47,7 @@ div.cover {
   left: 0;
   top: 0;
   background: rgba(0, 0, 0, .4);
+  z-index: 19999;
   &.hide {
     display: none;
   }

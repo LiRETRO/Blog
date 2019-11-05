@@ -51,7 +51,6 @@ export default {
   methods: {
     init () {
       this.dropBootstrap();
-      this.initPlugins();
     },
     dropBootstrap() {
       // Drop Bootstarp low-performance Navbar
@@ -80,16 +79,6 @@ export default {
             $navbar.className += " in";
         }
       }
-    },
-    initPlugins() {
-      // 初始化tagcloud插件
-      $.fn.tagcloud.defaults = {
-        //size: {start: 1, end: 1, unit: 'em'},
-        color: {start: '#bbbbee', end: '#0085a1'},
-      };
-      $('#tag_cloud a').tagcloud();
-      var $nav = document.querySelector("nav");
-      if($nav) FastClick.attach($nav);
     },
     toggleLoading (flag) {
       this.$store.commit('setLoading', flag)

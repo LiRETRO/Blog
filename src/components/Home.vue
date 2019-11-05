@@ -56,7 +56,7 @@
               <a target="_blank" href="https://www.zhihu.com/people/LiRETRO">
                 <span class="fa-stack fa-lg">
                   <i class="fa fa-circle fa-stack-2x"></i>
-                  <i class="fa fa-stack-1x fa-inverse">知</i>
+                  <i class="fa fa-stack-/2019/09/08/spacemacs-workflow/1x fa-inverse">知</i>
                 </span>
               </a>
             </li>
@@ -96,6 +96,9 @@ export default {
         page: {
           pageSize: 10,
           pageNum: 1
+        },
+        param: {
+          searchType: 1
         }
       },
       tagsQuery: {

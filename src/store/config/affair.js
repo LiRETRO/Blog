@@ -1,10 +1,13 @@
 import affair from '../../util/affair'
 // 定义状态(变量)
 const state = {
+  // 备案号
   record: '湘ICP备17000235号-1',
+  // 是否显示加载中...
   loading: false,
   blogList: [],
   blogDetail: {},
+  // 网站内信息
   site: {
     name: 'LiRETRO\'s Blog',
     date: new Date().getFullYear(),
@@ -13,11 +16,13 @@ const state = {
     facebookName: 'retro.li.1',
     githubName: 'LiRETRO'
   },
+  // Header使用
   header: {
     title: 'LiRETRO\'s Blog',
     subheading: 'Do What I Wanna Do',
     background: '/static/images/header_bg.png'
-  }
+  },
+  tempPublishData: {}
 }
 
 // 获取状态(变量)
@@ -27,7 +32,8 @@ const getters = {
   blogList: state => state.blogList,
   blogDetail: state => state.blogDetail,
   site: state => state.site,
-  header: state => state.header
+  header: state => state.header,
+  tempPublishData: state => state.tempPublishData
 }
 // 可以异步操作，使用commit调用mutations修改状态
 const actions = {
@@ -40,8 +46,7 @@ const actions = {
     affair.getBlogDetail(products).then(function (result) {
       commit('setBlogDetail', result)
     })
-  },
-
+  }
 }
 // 只能同步操作，修改状态
 const mutations = {
@@ -56,6 +61,9 @@ const mutations = {
   },
   setHeader (state, payload) {
     state.header = payload;
+  },
+  setTempPublishData (state, payload) {
+    state.tempPublishData = payload;
   }
 }
 

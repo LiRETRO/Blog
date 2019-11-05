@@ -2,40 +2,27 @@
   <div class="row">
     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
       <div id="tag_cloud" class="tags tags-sup js-tags">
-        <a class="tag-button--all focus">
+        <a class="tag-button--all focus" rel="2">
           Show All
-          <sup>75</sup>
+          <sup>2</sup>
         </a>
-        <a
-        >
-          笔记
-          <sup>39</sup>
+        <a v-for="tag in tagList" :key="tag.tagId" :rel="tag.archiveCount" class="tag-button" :title="tag.tagName">
+          {{ tag.tagName }}
+          <sup v-text="tag.archiveCount"></sup>
         </a>
       </div>
       <div class="mini-post-list js-result">
-        <section>
-          <a
-          >
+        <section v-for="(blogs, year) in splitForYear" :key="year">
+          <a>
             <span class="fa listing-seperator">
-              <span class="tag-text">2019</span>
+              <span class="tag-text" v-text="year"></span>
             </span>
           </a>
-          <div class="post-preview item" data-tags="CS+Idols">
-            <a
-            ></a>
-            <a href="/2019/09/13/peter-john-landin/">
-              <h2 class="post-title">Peter John Landin</h2>
-
-              <h3 class="post-subtitle">「计算机科学偶像」- 彼得·约翰·兰丁</h3>
-            </a>
-            <hr />
-          </div>
-          <div class="post-preview item" data-tags="Vim,Emacs">
-            <a href="/2019/09/08/spacemacs-workflow/">
-              <h2 class="post-title">My Spacemacs Workflow</h2>
-
-              <h3 class="post-subtitle">From Vim to Spacemacs</h3>
-            </a>
+          <div class="post-preview item" v-for="blog in blogs" :key="blog.blogId" data-tags="Vim,Emacs">
+            <router-link :to="`/detail/${blog.blogId}`">
+              <h2 class="post-title" v-text="blog.blogTitle"></h2>
+              <h3 class="post-subtitle" v-text="blog.blogSubTitle"></h3>
+            </router-link>
             <hr />
           </div>
         </section>
@@ -47,6 +34,7 @@
 <script>
 import blogContent from "@/components/Blog.vue";
 import { getBlogList } from "@/api/BlogApi";
+import { getTags } from "@/api/TagsApi";
 import { mapGetters, mapActions } from "vuex";
 export default {
   data() {
@@ -55,10 +43,21 @@ export default {
         page: {
           pageSize: 6,
           pageNum: 1
+        },
+        param: {
+          searchType: 0
+        }
+      },
+      tagQuery: {
+        page: {
+          pageSize: 999,
+          pageNum: 1
         }
       },
       totalNum: 0,
-      blogDataList: []
+      blogDataList: [],
+      splitForYear: {},
+      tagList: []
     };
   },
   computed: {
@@ -68,7 +67,6 @@ export default {
     ...mapActions(["getLocalIp"]),
     init() {
       this.fetchList(this.query);
-      this.initPlugins();
       // 更改标题背景
       this.$store.commit("setHeader", {
         title: "Archive",
@@ -80,10 +78,11 @@ export default {
     fetchList(query) {
       let _this = this;
       this.$emit("toggleLoading", true);
-      getBlogList(query)
+      Promise.all([getBlogList(query), getTags(this.tagQuery)])
         .then(data => {
-          _this.blogDataList = data.data;
-          _this.totalNum = data.page.totalNum;
+          _this.blogDataList = data[0].data;
+          _this.totalNum = data[0].page.totalNum;
+          _this.tagList = data[1].data.list;
           _this.$emit("toggleLoading", false);
         })
         .catch(error => {
@@ -102,10 +101,31 @@ export default {
         color: {start: '#bbbbee', end: '#0085a1'},
       };
       $('#tag_cloud a').tagcloud();
+    },
+    groupByYear(arr) {
+      let _this = this;
+      arr.forEach((value, index, self) => {
+        let year = new Date(value.blogPublishDate).getFullYear() || 2019;
+        if (!_this.splitForYear[year]) {
+          _this.splitForYear[year] = new Array();
+        }
+        _this.splitForYear[year].push(value);
+      });
+      return _this.splitForYear;
     }
   },
   components: {
     "blog-content": blogContent
+  },
+  watch: {
+    tagList (newVal, oldVal) {
+      this.initPlugins();
+    },
+    blogDataList(newVal, oldVal) {
+      if (JSON.stringify(newVal) !== '{}') {
+        this.groupByYear(newVal);
+      }
+    }
   },
   mounted() {
     this.init();

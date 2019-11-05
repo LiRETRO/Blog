@@ -18,14 +18,20 @@
 </template>
 
 <script>
-import wangEditor from 'wangeditor'
-import { publishBlog } from '@/api/BlogApi'
+import wangEditor from 'wangeditor';
+import { publishBlog } from '@/api/BlogApi';
+import { mapGetters, mapSetters } from 'vuex';
 export default {
     data () {
         return {
             editor: new wangEditor('#blogEditor'),
             content: ''
         }
+    },
+    computed: {
+        ...mapGetters([
+            'tempPublishData'
+        ])
     },
     methods: {
         init () {
@@ -38,6 +44,13 @@ export default {
                 subheading: '随便写写',
                 background: '/static/images/header_bg.png'
             });
+            // 本地数据覆盖
+            if (JSON.stringify(this.tempPublishData) !== '{}') {
+                this.$refs.title.value = this.tempPublishData.blogTitle;
+                this.$refs.subTitle.value = this.tempPublishData.blogSubTitle;
+                this.editor.txt.html(this.tempPublishData.blogContent);
+                this.$store.commit('setTempPublishData', {});
+            }
         },
         previewBlog (event) {
             let title = this.$refs.title.value;
@@ -57,7 +70,7 @@ export default {
                 blogContent: content
             };
             // TODO 保存数据，在返回到编辑页面时进行填充
-            
+            this.$store.commit('setTempPublishData', blogDetail);
             let router = this.$router.push({ name: 'blogPreview', params: { blogDetail } });
         },
         publishBlog (event) {
@@ -80,7 +93,7 @@ export default {
         }
     },
     mounted () {
-        this.init()
+        this.init();
     }
 }
 </script>

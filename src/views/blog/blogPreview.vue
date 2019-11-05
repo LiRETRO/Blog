@@ -5,7 +5,7 @@
     <publicNav :isInvert="true"></publicNav>
     <!-- 未来会加上 -->
     <!-- <header :class="['intro-header', blogDetail.blogBackground ? blogDetail.blogBackground : 'style-text']"> -->
-    <header class="intro-header">
+    <header class="intro-header style-text">
       <div class="header-mask"></div>
       <div class="container" v-if="blogDetail">
         <div class="row">
