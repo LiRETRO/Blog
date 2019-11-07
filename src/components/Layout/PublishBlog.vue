@@ -21,6 +21,7 @@
 import wangEditor from 'wangeditor';
 import { publishBlog } from '@/api/BlogApi';
 import { mapGetters, mapSetters } from 'vuex';
+// import { emojiJson } from '../../../static/js/emoji.js';
 export default {
     data () {
         return {
@@ -31,11 +32,90 @@ export default {
     computed: {
         ...mapGetters([
             'tempPublishData'
-        ])
+        ]),
+        customConfig() {
+            const customConfig = {
+                // emotions = [
+                //     {
+                //         title: '默认',
+                //         type: 'image',
+                //         content: emojiJson
+                //     }
+                // ]
+                // 上传接口地址
+                uploadImgServer: '/upload',
+                // 限制上传图片大小为2M[默认5M]
+                uploadImgMaxSize: 2 * 1024 * 1024,
+                // 限制一次上传5张[默认10000张]
+                uploadImgMaxLength: 5,
+                // 上传图片自定义参数[如Token校验等]
+                uploadImgParams: {
+
+                },
+                // 跨域上传传递Cookie
+                withCredentials: true,
+                // 上传Timeout为3秒[默认5秒]
+                uploadImgTimeout: 5000,
+                // 上传图片监听
+                uploadImgHooks: {
+                    before (xhr, editor, files) {
+                        /**
+                         * 图片上传之前触发
+                         * xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，files 是选择的图片文件
+                         * 如果返回的结果是 {prevent: true, msg: 'xxxx'} 则表示用户放弃上传
+                         * return {
+                         *   prevent: true,
+                         *   msg: '放弃上传'
+                         * }
+                         **/ 
+                        return true;
+                    },
+                    success (xhr, editor, result) {
+                        /**
+                         * 图片上传并返回结果，图片插入成功之后触发
+                         * xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
+                         */
+                    },
+                    fail (xhr, editor, result) {
+                        /**
+                         * 图片上传并返回结果，但图片插入错误时触发
+                         * xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
+                         */
+                    },
+                    error (xhr, editor) {
+                        /**
+                         * 图片上传出错时触发
+                         * xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
+                         */
+                    },
+                    timeout (xhr, editor) {
+                        /**
+                         * 图片上传超时时触发
+                         * xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
+                         */
+                    },
+                    customInsert (insertImg, result, editor) {
+                        /**
+                         * 图片上传并返回结果，自定义插入图片的事件（而不是编辑器自动插入图片！！！）
+                         * insertImg 是插入图片的函数，editor 是编辑器对象，result 是服务器端返回的结果
+                         * 举例：假如上传图片成功后，服务器端返回的是 {url:'....'} 这种格式，即可这样插入图片
+                         * var url = result.url
+                         * insertImg(url)
+                         * result 必须是一个 JSON 格式字符串！！！否则报错
+                         */
+                    }
+                },
+                customAlert (info) {
+                    // 自定义提示
+                    alert(info);
+                }
+            };
+            return customConfig;
+        }
     },
     methods: {
         init () {
-            this.editor.customConfig.uploadImgShowBase64 = true;
+            this.editor.customConfig = this.customConfig;
             // 创建编辑器
             this.editor.create();
             // 设置标题
@@ -133,7 +213,7 @@ export default {
         margin: 0 auto;
         .w-e-text-container {
             background-color: white !important;
-            min-height: 350px;
+            min-height: 600px;
         }
     }
     .but-container {
