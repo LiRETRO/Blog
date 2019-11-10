@@ -19,6 +19,7 @@
 
 <script>
 import wangEditor from 'wangeditor';
+import config from '@/config.js';
 import { publishBlog } from '@/api/BlogApi';
 import { mapGetters, mapSetters } from 'vuex';
 // import { emojiJson } from '../../../static/js/emoji.js';
@@ -31,8 +32,11 @@ export default {
     },
     computed: {
         ...mapGetters([
-            'tempPublishData'
+            'tempPublishData',
+            'guidGenerator'
         ]),
+        contentAttachNo () { return this.guidGenerator() },
+        coverAttachNo () { return this.guidGenerator() },
         customConfig() {
             const customConfig = {
                 // emotions = [
@@ -43,17 +47,19 @@ export default {
                 //     }
                 // ]
                 // 上传接口地址
-                uploadImgServer: '/upload',
+                uploadImgServer: `${config.serviceIp}api/upload/pictureUpload?attachNo=${this.guidGenerator()}`,
                 // 限制上传图片大小为2M[默认5M]
                 uploadImgMaxSize: 2 * 1024 * 1024,
                 // 限制一次上传5张[默认10000张]
                 uploadImgMaxLength: 5,
+                // 自定义FileName
+                uploadFileName: 'wangFiles',
                 // 上传图片自定义参数[如Token校验等]
                 uploadImgParams: {
 
                 },
                 // 跨域上传传递Cookie
-                withCredentials: true,
+                // withCredentials: true,
                 // 上传Timeout为3秒[默认5秒]
                 uploadImgTimeout: 5000,
                 // 上传图片监听
@@ -77,12 +83,14 @@ export default {
                          */
                     },
                     fail (xhr, editor, result) {
+                        console.log(xhr)
                         /**
                          * 图片上传并返回结果，但图片插入错误时触发
                          * xhr 是 XMLHttpRequst 对象，editor 是编辑器对象，result 是服务器端返回的结果
                          */
                     },
                     error (xhr, editor) {
+                        console.log(xhr)
                         /**
                          * 图片上传出错时触发
                          * xhr 是 XMLHttpRequst 对象，editor 是编辑器对象
@@ -103,6 +111,12 @@ export default {
                          * insertImg(url)
                          * result 必须是一个 JSON 格式字符串！！！否则报错
                          */
+                        console.log(result)
+                        if (result.code === 200) {
+                            result.data.forEach(data => {
+                                insertImg(`http://localhost:8000/${data.filePath}`);
+                            });
+                        }
                     }
                 },
                 customAlert (info) {
@@ -122,13 +136,15 @@ export default {
             this.$store.commit('setHeader', {
                 title: 'Publish Blog',
                 subheading: '随便写写',
-                background: '/static/images/header_bg.png'
+                background: '/static/images/publish.jpg'
             });
             // 本地数据覆盖
             if (JSON.stringify(this.tempPublishData) !== '{}') {
                 this.$refs.title.value = this.tempPublishData.blogTitle;
                 this.$refs.subTitle.value = this.tempPublishData.blogSubTitle;
                 this.editor.txt.html(this.tempPublishData.blogContent);
+                this.contentAttachNo = this.tempPublishData.blogContentAttachNo;
+                this.coverAttachNo = this.tempPublishData.blogCoverAttachNo;
                 this.$store.commit('setTempPublishData', {});
             }
         },
@@ -147,7 +163,9 @@ export default {
             let blogDetail = {
                 blogTitle: title,
                 blogSubTitle: subTitle,
-                blogContent: content
+                blogContent: content,
+                blogContentAttachNo: this.contentAttachNo,
+                blogCoverAttachNo: this.coverAttachNo
             };
             // TODO 保存数据，在返回到编辑页面时进行填充
             this.$store.commit('setTempPublishData', blogDetail);
@@ -165,7 +183,11 @@ export default {
                 alert('请输入内容！');
                 return false;
             }
-            publishBlog( { blogTitle: title, blogContent: content, blogSubTitle: subTitle } ).then(data => {
+            const blogData = {
+                blogTitle: title, blogContent: content, blogSubTitle: subTitle,
+                blogContentAttachNo: this.contentAttachNo, blogCoverAttachNo: this.coverAttachNo
+            };
+            publishBlog(blogData).then(data => {
                 if (data.code === 200) {
                     alert(data.resultMessage)
                 }

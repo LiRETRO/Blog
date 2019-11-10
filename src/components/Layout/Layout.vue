@@ -20,7 +20,7 @@
       </transition>
     </div>
     <publicFooter></publicFooter>
-    <loading :loadingVisible="loading"></loading>
+    <!-- <loading :loadingVisible="loading"></loading> -->
   </div>
 </template>
 
@@ -125,12 +125,13 @@ export default {
     }
   },
   mounted () {
-    this.init()
+    this.init();
   }
 }
 </script>
 <style lang="less">
 @import '../../assets/global/global.less';
+@import '../../../static/css/pace-theme-flash.css';
 
 // 动画
 .child-view {
@@ -149,102 +150,5 @@ export default {
 }
 .fade-enter, .fade-leave-active {
   opacity: 0
-}
-
-// pace
-.pace {
-  pointer-events: none;
-
-  user-select: none;
-}
-
-.pace-inactive {
-  display: none;
-}
-
-.pace .pace-progress {
-  background: #ff0000;
-  position: fixed;
-  z-index: 2000;
-  top: 0;
-  right: 100%;
-  width: 100%;
-  height: 2px;
-}
-
-// 音乐播放器
-#audio_btn {
-  position: fixed;
-  right: 20px;
-  top: 12px;
-  z-index: 200;
-  display: none;
-  width: 30px;
-  height: 30px;
-  background-repeat: no-repeat;
-  cursor: pointer;
-}
-.play_yinfu {
-  position: fixed;
-  right: 20px;
-  float: right;
-  top: 12px;
-  width: 30px;
-  height: 30px;
-  background-image: url("../../../static/images/music.gif");
-  background-repeat: no-repeat;
-  background-position: center center;
-  background-size: 60px 60px;
-}
-
-.rotate {
-  position: fixed;
-  right: 20px;
-  float: right;
-  top: 12px;
-  width: 30px;
-  height: 30px;
-  background-size: 100% 100%;
-  background-image: url("../../../static/images/music_off.png");
-  animation: rotating 1.2s linear infinite;
-}
-
-
-@-webkit-keyframes rotating {
-  from {
-      -webkit-transform: rotate(0deg);
-  }
-  to {
-      -webkit-transform: rotate(360deg);
-  }
-}
-
-@keyframes rotating {
-  from {
-      transform: rotate(0deg);
-  }
-  to {
-      transform: rotate(360deg);
-  }
-}
-
-@-moz-keyframes rotating {
-  from {
-      -moz-transform: rotate(0deg);
-  }
-  to {
-      -moz-transform: rotate(360deg);
-  }
-}
-
-.off {
-  position: fixed;
-  right: 10px;
-  float: right;
-  top: 1px;
-  background-size: 100% 100%;
-  background-image: url("../../../static/images/music_no.png");
-  background-repeat: no-repeat;
-  background-position: center center;
 }
 </style>

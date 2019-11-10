@@ -71,7 +71,7 @@ export default {
       this.$store.commit("setHeader", {
         title: "Archive",
         subheading: "Stay Hungry, Stay Foolish",
-        background: "/static/images/header_bg.png",
+        background: "/static/images/archive.jpg",
         id: 'tag-heading'
       });
     },

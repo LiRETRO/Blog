@@ -6,6 +6,7 @@
     <!-- 未来会加上 -->
     <!-- <header :class="['intro-header', blogDetail.blogBackground ? blogDetail.blogBackground : 'style-text']"> -->
     <header class="intro-header">
+      <!-- <div :class="blogDetail.blogBackground ? 'header-mask' : ''"></div> -->
       <div class="header-mask"></div>
       <div class="container" v-if="blogDetail">
         <div class="row">
@@ -134,5 +135,13 @@ export default {
     position: relative;
     background-image: url(/static/images/bg.jpg);
   }
+    
+  header.intro-header .header-mask{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      background: rgba(0,0,0, 0.3);
+  }
+    
 </style>
 
