@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <!--音乐-->
-    <div class="video_exist off" id="audio_btn" style="display: block; z-index:999999;">
+    <!-- <div class="video_exist off" id="audio_btn" style="display: block; z-index:999999;">
       <div id="yinfu"></div>
       <audio preload="none" id="media" src="/static/music/astronaut.mp3" loop="loop"></audio>
-    </div>
+    </div> -->
     <transition name="fade" mode="out-in">
       <router-view />
     </transition>
@@ -24,7 +24,7 @@ export default {
     }
   },
   mounted () {
-    this.init();
+    // this.init();
   }
 }
 </script>

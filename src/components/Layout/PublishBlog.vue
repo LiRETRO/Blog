@@ -7,6 +7,9 @@
                 <input ref="title" placeholder="请输入标题"/>
                 <input ref="subTitle" placeholder="请输入副标题"/>
             </div>
+            <div class="tags tag-container">
+                <a v-for="tag in tags" :key="tag.tagId" @click="tagClick($event)" :title="tag.tagName" v-text="tag.tagName"></a>
+            </div>
             <div id="blogEditor">
             </div>
             <div class="but-container">
@@ -21,13 +24,21 @@
 import wangEditor from 'wangeditor';
 import config from '@/config.js';
 import { publishBlog } from '@/api/BlogApi';
+import { getTags } from '@/api/TagsApi';
 import { mapGetters, mapSetters } from 'vuex';
 // import { emojiJson } from '../../../static/js/emoji.js';
 export default {
     data () {
         return {
             editor: new wangEditor('#blogEditor'),
-            content: ''
+            content: '',
+            tagsQuery: {
+                page: {
+                    pageSize: 200,
+                    pageNum: 1
+                }
+            },
+            tags: []
         }
     },
     computed: {
@@ -138,6 +149,8 @@ export default {
                 subheading: '随便写写',
                 background: '/static/images/publish.jpg'
             });
+            // 获取Tags
+            this.fetchTags(this.tagsQuery);
             // 本地数据覆盖
             if (JSON.stringify(this.tempPublishData) !== '{}') {
                 this.$refs.title.value = this.tempPublishData.blogTitle;
@@ -147,6 +160,21 @@ export default {
                 this.coverAttachNo = this.tempPublishData.blogCoverAttachNo;
                 this.$store.commit('setTempPublishData', {});
             }
+        },
+        fetchTags(tagsQuery) {
+            const _this = this;
+            getTags(tagsQuery).then(data => {
+                this.tags = data.data.list;
+            }).catch(error => {
+                alert(error.message);
+            });
+        },
+        tagClick(e) {
+            const tag = e.srcElement;
+            if (tag.className === 'active') 
+                tag.className = '';
+            else 
+                tag.className = 'active';
         },
         previewBlog (event) {
             let title = this.$refs.title.value;
@@ -226,6 +254,20 @@ export default {
                 box-shadow: inset 0 2px 4px rgba(35,54,86,.3);
                 color: #6d757a;
             }
+        }
+    }
+    .tag-container {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        align-items: center;
+        margin-bottom: 0 !important;
+        > a {
+            &:hover, &.active {
+                background-color: #0085a1 !important;
+            }
+            border-color: #bfbfbf !important;
+            color: #bfbfbf !important
         }
     }
     #blogEditor {
