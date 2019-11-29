@@ -37,15 +37,7 @@ export default {
         'home', 'about', 'archive', 'privatePublish'
       ],
       isIndex: true,
-      curPageName: '',
-      paceOptions: {
-        ajax: false, // disabled
-        document: true, // disabled
-        eventLag: false, // disabled
-        elements: {
-          selectors: ['.main']
-        }
-      }
+      curPageName: ''
     }
   },
   methods: {

@@ -8,8 +8,6 @@ import store from './store/manager/manager'
 import './util/request'
 // 引入jquery 及其插件
 import 'jquery.easing'
-// pace
-import '../static/js/pace.min.js'
 // 引入Bootstrap
 import '../static/css/bootstrap.min.css'
 import '../static/js/bootstrap.min.js'
@@ -28,6 +26,19 @@ Vue.use(Vuex)
 // 注册全局公用组件
 Vue.component('TimeLine', TimeLine)
 
+window.paceOptions = {
+  ajax: {
+    trackMethods: ['GET', 'POST']
+  }, // disabled
+  document: false, // disabled
+  eventLag: false // disabled
+  // elements: {
+  //   selectors: ['.main']
+  // }
+}
+// pace
+require('../static/js/pace.min.js')
+
 String.prototype.format = function () {
   if (arguments.length == 0) return this;
   for (var s = this, i = 0; i < arguments.length; i++)
@@ -37,7 +48,7 @@ String.prototype.format = function () {
 
 Vue.config.productionTip = false
 /* eslint-disable no-new */
-let vue = new Vue({
+new Vue({
   el: '#app',
   router,
   store,
